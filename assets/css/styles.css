@@ -1,0 +1,407 @@
+/* --- Global & Typography --- */
+:root {
+    --primary-blue: #007bff; /* Main brand blue */
+    --secondary-blue: #1E90FF; /* Bright blue for accents */
+    --dark-bg: #1A2238; /* Deep dark background */
+    --card-bg: #283049; /* Slightly lighter card background */
+    --text-light: #f5f5f5;
+    --text-muted: #a0a0a0;
+    --success-green: #28a745;
+    --google-red: #fa0000;
+    --shadow-deep: 0 10px 30px rgba(0, 0, 0, 0.4);
+    --top-header: #ffffff;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.error-message {
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: #dc2626;
+  display: none;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* --- Header Styling (Unique Look) --- */
+.top-bar {
+    background: var(--top-header);
+    padding: 10px 40px;
+    border-bottom: 2px solid var(--primary-blue);
+    box-shadow: var(--shadow-deep);
+}
+
+.top-bar-inner {
+    display: flex;
+    /* justify-content: space-between;  <-- If you had this, consider changing or removing */
+    justify-content: center; /* This will center the entire brand block (logo + text) */
+    align-items: center;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+}
+
+.college-logo {
+    height: 140px;
+    width: auto;
+    margin-right: 15px;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column; /* Stack name and sub-name vertically */
+    align-items: center;    /* Center horizontally */
+    text-align: center;     /* Fallback/additional centering */
+
+    line-height: 1.2;
+}
+
+.college-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    /* Remove any explicit text-align here if it was left/right */
+
+  
+}
+
+.sub-name {
+   font-size: 1rem;
+    font-weight: 400;
+    color: var(--google-red);
+    letter-spacing: 1px;
+    /* Remove any explicit text-align here if it was left/right */
+}
+
+.platform-subtitle {
+  font-size: 1.125rem;
+  color: var(--google-red);
+  line-height: 1.6;
+  font-weight: 400;
+  padding-bottom: 7px;
+}
+.platform-subtitle1 {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-weight: 400;
+  padding-bottom: 7px;
+}
+.platform-subtitle2 {
+  font-size: 1.125rem;
+  color: var(--google-red);
+  line-height: 1.6;
+  font-weight: 400;
+  padding-bottom: 7px;
+}
+.header-nav {
+    display: flex;
+    align-items: center;
+}
+
+.header-nav a {
+    color: var(--text-light);
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.header-nav a:hover {
+    color: var(--secondary-blue);
+}
+
+.secondary-logo-img {
+    height: 140px;
+    margin-left: 25px;
+}
+
+/* --- Main Content & Background --- */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+}
+
+/* Decorative Circles for visual interest */
+.decorative-circle {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(var(--secondary-blue), rgba(30, 144, 255, 0));
+    opacity: 0.1;
+    filter: blur(80px);
+    pointer-events: none;
+}
+.circle-1 { top: 10%; left: 15%; }
+.circle-2 { bottom: 5%; right: 10%; }
+
+/* --- Login Card Styling --- */
+.login-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    z-index: 10;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.portal-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 5px;
+}
+
+.tagline {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* User Toggle */
+.user-toggle {
+    display: flex;
+    background: #1e263d;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 4px;
+}
+
+.toggle-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 10px 0;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.toggle-btn.active {
+    background: var(--primary-blue);
+    color: var(--text-light);
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
+}
+
+/* Input Fields */
+.input-group {
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 12px 12px 45px; /* Space for icon */
+    background: #1e263d;
+    border: 1px solid #3d4a6c;
+    border-radius: 6px;
+    color: var(--text-light);
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-group input:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+.input-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.toggle-password:hover {
+    color: var(--text-light);
+}
+
+/* Options Row */
+.options-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 0.9rem;
+}
+
+.remember-me {
+    color: var(--text-muted);
+}
+
+.forgot-link {
+    color: var(--secondary-blue);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.forgot-link:hover {
+    color: var(--text-light);
+}
+
+/* Action Buttons */
+.action-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, box-shadow 0.3s, transform 0.1s;
+    text-decoration: none; /* For the Google button */
+}
+
+.access-portal-btn {
+    background-color: var(--primary-blue);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+}
+
+.access-portal-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+    color: var(--text-muted);
+}
+
+.divider-line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #3d4a6c;
+}
+
+.divider-text {
+    padding: 0 15px;
+    font-size: 0.8rem;
+}
+
+.google-signin-btn {
+    background-color: var(--google-red);
+    color: white;
+    margin-bottom: 20px;
+}
+
+.google-signin-btn:hover {
+    background-color: #c5372c;
+    transform: translateY(-1px);
+}
+
+.google-icon {
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+
+/* Card Footer */
+.card-footer {
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid #3d4a6c;
+}
+
+.security-badge {
+    display: inline-flex;
+    align-items: center;
+    color: var(--success-green);
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.security-badge .badge-icon {
+    margin-right: 8px;
+    font-size: 1.1rem;
+}
+
+.system-check {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* --- Footer Styling --- */
+.site-footer {
+    padding: 15px 40px;
+    background: var(--card-bg);
+    border-top: 1px solid var(--primary-blue);
+    text-align: center;
+    font-size: 0.85rem;
+    color: white;
+}
+
+.site-footer p {
+    margin: 5px 0;
+}
+
+.footer-icon {
+    margin-right: 5px;
+    color: var(--secondary-blue);
+}
+.signin-button {
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+  color: var(--white);
+  border: none;
+  border-radius: 50px;
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  box-shadow: 0 8px 25px var(--shadow-light);
+}

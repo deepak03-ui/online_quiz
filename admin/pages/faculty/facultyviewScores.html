@@ -1,0 +1,83 @@
+<div class="page-header-dynamic"><h1 class="page-title">Score Analysis Dashboard</h1></div>
+
+<div class="filter-card">
+  <div class="filter-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+    
+    <div><label class="form-label">Year</label><select class="form-select" id="score-filter-year"><option value="" selected>-- Choose Year --</option></select></div>
+    <div><label class="form-label">Department</label><select class="form-select" id="score-filter-department"><option value="" selected>-- Choose Department --</option></select></div>
+    <div><label class="form-label">Section</label><select class="form-select" id="score-filter-section"><option value="" selected>-- Choose Section --</option></select></div>
+    <div>
+      <label class="form-label">Subject Code</label>
+      <select class="form-select" id="score-filter-subject">
+          <option value="">-- Choose Subject --</option>
+      </select>
+    </div>
+    <div>
+      <label class="form-label">Test ID</label>
+      <select class="form-select" id="score-filter-testid">
+          <option value="">-- Select a Test --</option>
+      </select>
+    </div>
+   <div>
+    <label class="form-label">Attendance Status</label>
+    <select class="form-select" id="score-filter-attendance">
+        <option value="all">All Students</option>
+        <option value="attended">Attended (Finished)</option>
+        <option value="not_finished">Not Finished</option> 
+        <option value="not_attended">Not Attended</option>
+    </select>
+</div>
+  </div>
+  <div class="filter-buttons">
+    <button id="score-apply-btn" class="btn-primary">Apply Filter</button>
+    <button id="score-clear-btn" class="btn-secondary">Clear Filter</button>
+    <button id="score-download-btn" class="btn-secondary">Download Scores .xlsx</button>
+  </div>
+</div>
+
+<div class="analysis-grid">
+  <div class="stat-card">
+      <span class="material-icons card-icon">groups</span>
+      <div><div class="card-title">Total Students</div><div class="card-value" id="total-students-val">0</div></div>
+  </div>
+  <div class="stat-card">
+      <span class="material-icons card-icon">functions</span>
+      <div><div class="card-title">Average Score</div><div class="card-value" id="average-score-val">0</div></div>
+  </div>
+  <div class="stat-card">
+      <span class="material-icons card-icon">trending_up</span>
+      <div><div class="card-title">Highest Score</div><div class="card-value" id="highest-score-val">0</div></div>
+  </div>
+  <div class="stat-card">
+      <span class="material-icons card-icon">task_alt</span>
+      <div><div class="card-title">Pass Rate (>= 50%)</div><div class="card-value" id="pass-rate-val">0%</div></div>
+  </div>
+</div>
+
+<div id="charts-wrapper" style="display: none;">
+  <div class="charts-grid">
+      <div class="chart-container">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h3 style="margin:0;">Score Distribution</h3>
+          </div>
+          <canvas id="distributionChart"></canvas>
+      </div>
+      <div class="chart-container">
+          <h3>Pass / Fail Breakdown</h3><p>Based on a pass mark of 50.</p><canvas id="passFailChart"></canvas>
+      </div>
+  </div>
+</div>
+
+<div class="table-section" style="margin-top: 2rem;">
+  <div class="table-overflow">
+    <h3 style="padding: 1rem 1.5rem 0;">Detailed Scores</h3>
+    <table class="data-table" id="score-table">
+      <thead>
+        <tr>
+          <th>S.No</th><th>Student Name</th><th>Roll NO</th><th>Year</th><th>Dept</th><th>Section</th><th>Subject Code</th><th>Test Name</th><th>Score</th><th>Raw Score</th><th>Total Marks</th><th>Status</th><th>actions</th>
+        </tr>
+      </thead>
+      <tbody id="score-table-body"></tbody>
+    </table>
+  </div>
+</div>

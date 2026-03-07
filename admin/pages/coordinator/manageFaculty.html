@@ -1,0 +1,36 @@
+<div class="page-header-dynamic"><h1 class="page-title">Faculty Subject Assignments</h1></div>
+<div class="filter-card">
+  <div class="filter-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+    <div><label class="form-label">Faculty Name</label><input class="form-input" id="faculty-filter-name" placeholder="e.g., Jane" type="text"/></div>
+    <div><label class="form-label">Department</label><select class="form-select" id="faculty-filter-department"></select></div>
+    <div><label class="form-label">Year</label><select class="form-select" id="faculty-filter-year"></select></div>
+    <div><label class="form-label">Subject Code</label><input class="form-input" id="faculty-filter-subject" placeholder="e.g., CS1" type="text"/></div>
+  </div>
+  <div class="filter-buttons">
+    <button id="faculty-apply-filter-btn" class="btn-primary">Apply Filter</button>
+    <button id="faculty-clear-filter-btn" class="btn-secondary">Clear Filter</button>
+  </div>
+</div>
+<div class="table-section" style="margin-top: 2rem;">
+  <div class="pagination-controls">
+    <div class="filter-item">
+        <label for="faculty-page-size-select">Show Entries:</label>
+        <select id="faculty-page-size-select" class="filter-select">
+            <option value="25">25</option>
+            <option value="50" selected>50</option>
+            <option value="100">100</option>
+        </select>
+    </div>
+    <div class="page-navigation">
+        <button id="faculty-prev-btn" class="btn-secondary">Previous</button>
+        <span id="faculty-page-info">Page 1</span>
+        <button id="faculty-next-btn" class="btn-secondary">Next</button>
+    </div>
+  </div>
+  <div class="table-overflow">
+    <table class="data-table">
+      <thead><tr><th class="col-short">S.No</th><th>Faculty Name</th><th class="col-medium">Department</th><th class="col-short">Year</th><th class="col-short">Section</th><th class="col-medium">Subject Code</th><th>Subject Name</th><th class="col-email">Faculty Email</th></tr></thead>
+      <tbody id="faculty-table-body"></tbody>
+    </table>
+  </div>
+</div>

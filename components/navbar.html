@@ -1,0 +1,35 @@
+<!-- navbar.html - header and sidebar content -->
+
+  <!-- Navigation container is filled by common.buildNav(order) -->
+  <div id="nav-list" class="space-y-2"></div>
+
+  <div class="mt-6">
+    <button id="sidebar-signout" class="w-full py-2 rounded-lg border border-gray-200 hover:bg-gray-50 flex items-center justify-center gap-2">
+      <span class="material-symbols-outlined">logout</span><span>Sign out</span>
+    </button>
+  </div>
+</div>
+
+<script>
+(function(){
+    const auth = window.auth; 
+    document.getElementById('sidebar-signout')?.addEventListener('click', () => {
+        if (auth) {
+            sessionStorage.clear(); 
+            auth.signOut().then(() => {
+                // ✅ This block should now be EMPTY! Rely on ui.js listener.
+            }).catch(e => console.error('Sidebar sign out failed', e));
+        } else {
+            // Keep the fallback redirect here for error handling
+            window.location.href = '/index.html'; 
+        }
+    });
+})();
+</script>
+
+
+<style>
+  /* Component local styles ensure consistent look when loaded independently */
+  .sidebar-inner { display:flex;flex-direction:column;align-items:stretch; }
+  .avatar-lg{width:84px;height:84px;border-radius:12px;object-fit:cover;border:3px solid #fff;box-shadow:0 8px 24px rgba(30,58,138,0.08);}
+</style>

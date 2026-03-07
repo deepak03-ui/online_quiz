@@ -1,0 +1,98 @@
+<style>
+    /* Styling to match the provided image */
+    .profile-summary-card {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+    .profile-picture-area {
+        width: 150px;
+        text-align: center;
+    }
+    .avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: #1e3a8a; /* navy */
+        color: white;
+        font-size: 4rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .profile-details-grid {
+        flex-grow: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem 3rem;
+        border-left: 1px solid #e5e7eb;
+        padding-left: 3rem;
+    }
+    .detail-label {
+        font-size: 0.75rem; /* Text-xs */
+        color: #9ca3af;
+        margin-bottom: 0.25rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    .detail-value {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #1f2937;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 0.5rem;
+    }
+    
+    @media (max-width: 768px) {
+        .profile-summary-card {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .profile-details-grid {
+            border-left: none;
+            padding-left: 0;
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="profile-summary-card">
+        
+    <div class="profile-picture-area">
+        <div class="avatar" id="student-avatar-initial">S</div>
+        <p class="font-semibold text-lg mt-2" id="student-name-display">Loading Name</p>
+        <p class="text-sm text-gray-500" id="student-roll-display">Loading Roll</p>
+    </div>
+    
+    <div class="profile-details-grid">
+        
+        <div class="detail-item">
+            <p class="detail-label">Email</p>
+            <p class="detail-value" id="detail-email">...</p>
+        </div>
+        
+        <div class="detail-item">
+            <p class="detail-label">Roll Number</p>
+            <p class="detail-value" id="detail-rollno">...</p>
+        </div>
+        
+        <div class="detail-item">
+            <p class="detail-label">Department</p>
+            <p class="detail-value" id="detail-department">...</p>
+        </div>
+        
+        <div class="detail-item">
+            <p class="detail-label">Year & Section</p>
+            <p class="detail-value" id="detail-year-section">...</p>
+        </div>
+        
+    </div>
+</div>

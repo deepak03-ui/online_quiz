@@ -1,0 +1,88 @@
+<div id="user-management-module" class="space-y-6">
+    <div class="flex justify-between items-center">
+        <h2 class="text-2xl font-semibold">User Management</h2>
+        <button id="add-user-btn" class="text-white bg-pec-orange hover:bg-orange-600 px-4 py-2 rounded flex items-center gap-1">
+            <span class="material-symbols-outlined text-lg">person_add</span>
+            Add New User
+        </button>
+    </div>
+    
+    <div class="content-card p-4 bg-white rounded-lg shadow flex gap-4">
+        <input type="text" id="user-search-input" placeholder="Search by Name or Email..." class="form-input flex-1 p-2 border rounded">
+        <select id="user-role-filter" class="form-select p-2 border rounded w-48">
+            <option value="">Filter by Role (All)</option>
+            <option value="admin">Administrator</option>
+            <option value="Coordinator">Coordinator</option>
+            <option value="Faculty">Faculty</option>
+            <option value="Student">Student</option>
+        </select>
+    </div>
+
+    <div class="content-card p-0 bg-white rounded-lg shadow overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email (ID)</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                    <th class="px-6 py-3">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="user-list-table-body" class="bg-white divide-y divide-gray-200">
+                <tr><td colspan="5" class="text-center py-8 text-gray-500">Loading users...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div id="user-modal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-gray-600 bg-opacity-75 flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-2xl max-w-lg w-full p-6 m-4">
+        
+        <div class="flex justify-between items-center border-b pb-3 mb-4">
+            <h3 id="modal-title" class="text-xl font-bold">Add New User</h3>
+            <button type="button" id="close-modal-btn" class="text-gray-400 hover:text-gray-600">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <form id="user-form" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Email (Used for Login / ID)</label>
+                <input type="email" name="email" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" required>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                <input type="text" name="name" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" required>
+            </div>
+
+            <div id="password-group">
+                <label class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" name="password" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Role</label>
+                <select name="role" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm" required>
+                    <option value="" disabled selected>-- Select Role --</option>
+                    <option value="admin">Administrator</option>
+                    <option value="Coordinator">Coordinator</option>
+                    <option value="Faculty">Faculty</option>
+                    <option value="Student">Student</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Department (Optional for Students/Faculty)</label>
+                <input type="text" name="department" placeholder="e.g., CSE, ECE, ADS" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm">
+            </div>
+            
+            <div class="flex justify-end pt-4 space-x-3 border-t">
+                <button type="button" id="cancel-modal-btn" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300">Cancel</button>
+                <button type="submit" id="save-user-btn" class="px-4 py-2 text-sm font-medium text-white bg-pec-navy rounded-md hover:bg-pec-orange transition duration-150">Save User</button>
+            </div>
+        </form>
+    </div>
+</div>

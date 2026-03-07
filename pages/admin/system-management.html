@@ -1,0 +1,32 @@
+<div id="system-management-module" class="space-y-6">
+    <h2 class="text-2xl font-semibold">System Management & Security</h2>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 p-6 bg-white rounded-xl shadow-md space-y-4">
+            <h3 class="text-xl font-bold border-b pb-2">Security Logs and Audit Trails</h3>
+            <p class="text-gray-600">Review all critical system actions, failed logins, and data modifications.</p>
+            <div id="security-log-area" class="h-64 overflow-y-scroll bg-gray-50 p-3 rounded text-xs font-mono">
+                [2025-12-12 14:30:01] [SUCCESS] Administrator logged in (IP: 192.168.1.10)<br>
+                [2025-12-12 14:28:15] [WARNING] User S2022CSE01 attempted login 5 times (Lockout active)<br>
+                [2025-12-12 14:25:00] [AUDIT] Coordinator edited Test CS301 (Change: Duration 60->90 min)<br>
+            </div>
+            <button class="mt-3 text-pec-orange hover:underline font-semibold">View Full Audit Log</button>
+        </div>
+        
+        <div class="p-6 bg-white rounded-xl shadow-md space-y-4">
+            <h3 class="text-xl font-bold border-b pb-2">Data Operations</h3>
+            <p class="text-gray-600">Perform essential database maintenance and security tasks.</p>
+            <button class="w-full text-white bg-green-500 hover:bg-green-600 px-4 py-2 rounded flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined">backup</span>
+                Run Full System Backup
+            </button>
+            <button class="w-full text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined">restore</span>
+                Restore from Latest Backup
+            </button>
+            <div class="pt-3 border-t mt-3">
+                 <button class="w-full text-pec-navy hover:underline font-semibold">API Key Management</button>
+            </div>
+        </div>
+    </div>
+</div>

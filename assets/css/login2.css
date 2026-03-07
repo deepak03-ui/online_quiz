@@ -1,0 +1,938 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+:root {
+  --primary-color: #0b5ed7;
+  --primary-hover-color: #084ea8;
+  --secondary-color: #6c757d;
+  --primary-blue: #2563eb;
+  --secondary-blue: #1e40af;
+  --light-blue: #dbeafe;
+  --dark-cream: #fef7ed;
+  --cream: #fff7ed;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --white: #ffffff;
+  --shadow-light: rgba(37, 99, 235, 0.1);
+  --shadow-medium: rgba(37, 99, 235, 0.15);
+  --shadow-dark: rgba(37, 99, 235, 0.25);
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, var(--dark-cream) 0%, var(--cream) 50%, #fefcfb 100%);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Background Pattern */
+.background-pattern {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 25% 25%, var(--light-blue) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(254, 247, 237, 0.8) 0%, transparent 50%);
+  z-index: -2;
+}
+
+.background-pattern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(45deg, transparent 49%, rgba(37, 99, 235, 0.03) 50%, transparent 51%),
+    linear-gradient(-45deg, transparent 49%, rgba(254, 247, 237, 0.5) 50%, transparent 51%);
+  background-size: 60px 60px;
+}
+
+/* Header Styles */
+.top-bar {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+  padding: 1rem 1.2rem;
+  position: relative;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.top-bar::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue), var(--primary-blue));
+}
+
+.top-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  justify-content: center;
+  position: relative;
+}
+
+.logo-container {
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-placeholder {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 8px 25px var(--shadow-light);
+}
+
+.logo-placeholder img {
+  width: 70px;
+  height: 90px;
+  border-radius: 8px;
+  object-fit: contain;
+} 
+
+@keyframes pulse-ring {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.1); opacity: 0.3; }
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.college-name {
+  font-family: 'Lora', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  padding: 0.5rem 0;
+
+  /* Fallback: Solid color for older browsers */
+  color: var(--secondary-blue);
+
+  /* A rich gradient from your primary blue to your secondary blue */
+  background-image: linear-gradient(180deg, 
+    var(--primary-blue), 
+    var(--secondary-blue)
+  );
+  
+  /* This clips the background gradient to the shape of the text */
+  -webkit-background-clip: text;
+  background-clip: text;
+  
+  /* The text color is made transparent to show the gradient behind it */
+  color: transparent;
+}
+
+.sub-name {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  font-weight: 600; /* Bolder weight works well with gradients */
+  
+  /* Fallback color for browsers that don't support the gradient */
+  color: #B8860B; 
+
+  /* Create a top-to-bottom gradient from a lighter gold to our deep gold */
+  background-image: linear-gradient(180deg, #FFD700, #B8860B);
+
+  /* Crucial properties to apply the gradient to the text */
+  -webkit-background-clip: text; /* For Safari/Chrome */
+  background-clip: text;
+  color: transparent;
+}
+
+.department-name {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.header-accent {
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--primary-blue), transparent);
+  border-radius: 2px;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Decorative Elements */
+.decorative-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(254, 247, 237, 0.3));
+  animation: float 6s ease-in-out infinite;
+}
+
+.circle-1 {
+  width: 200px;
+  height: 200px;
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.circle-2 {
+  width: 150px;
+  height: 150px;
+  top: 60%;
+  right: 15%;
+  animation-delay: 2s;
+}
+
+.circle-3 {
+  width: 100px;
+  height: 100px;
+  bottom: 20%;
+  left: 20%;
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-20px) rotate(120deg); }
+  66% { transform: translateY(10px) rotate(240deg); }
+}
+
+/* Login Card */
+.view-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  width: 100%;
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  box-shadow: 
+    0 32px 64px var(--shadow-dark),
+    0 0 0 1px rgba(255, 255, 255, 0.5);
+  max-width: 600px;
+  width: 100%;
+  overflow: hidden;
+  animation: card-enter 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.03) 0%, transparent 50%, rgba(254, 247, 237, 0.05) 100%);
+  pointer-events: none;
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card-header {
+  text-align: center;
+  padding: 2rem 3rem 2rem;
+  position: relative;
+}
+
+.card-header img{
+  width: 190px;
+  height: auto;
+  padding: 20px;
+  padding-top: 0px;
+}
+
+.platform-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+  border-radius: 20px;
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 16px 40px var(--shadow-medium);
+  position: relative;
+}
+
+.platform-icon::before {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border: 2px solid var(--light-blue);
+  border-radius: 24px;
+  animation: icon-pulse 3s ease-in-out infinite;
+}
+
+@keyframes icon-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.2); opacity: 0.2; }
+}
+
+.icon-inner {
+  width: 40px;
+  height: 40px;
+  background: var(--white);
+  border-radius: 10px;
+  position: relative;
+}
+
+.icon-inner::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  background: var(--primary-blue);
+  border-radius: 6px;
+}
+
+.platform-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.025em;
+}
+
+.platform-subtitle {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-weight: 400;
+  padding-bottom: 7px;
+}
+
+.card-body {
+  padding: 1rem 3.5rem 1rem;
+}
+
+.signin-button {
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+  color: var(--white);
+  border: none;
+  border-radius: 50px;
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  box-shadow: 0 8px 25px var(--shadow-light);
+}
+
+.signin-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px var(--shadow-medium);
+}
+
+.signin-button:active {
+  transform: translateY(0);
+}
+
+.button-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.error-message {
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: #dc2626;
+  display: none;
+  text-align: center;
+  font-weight: 500;
+}
+
+.card-footer {
+  padding: 1.5rem 3rem 3rem;
+  border-top: 1px solid rgba(37, 99, 235, 0.1);
+  background: rgba(254, 247, 237, 0.3);
+}
+
+.security-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.badge-icon {
+  width: 16px;
+  height: 16px;
+  background: var(--primary-blue);
+  border-radius: 50%;
+  position: relative;
+}
+
+.badge-icon::before {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.all-footer {
+  text-align: right;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid rgba(37, 99, 235, 0.1);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+/* =========================
+   Watermark (right-bottom)
+   ========================= */
+
+.site-watermark {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 999;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.70);
+  border: 1px solid rgba(16,24,40,0.06);
+  box-shadow: 0 8px 20px rgba(16,24,40,0.08);
+  backdrop-filter: blur(6px);
+  font-size: 0.85rem;
+  color: rgba(33,37,41,0.85);
+  pointer-events: none;      /* makes it non-interactive so it never interferes with clicks */
+  opacity: 0.92;
+}
+
+/* Logo inside watermark */
+.site-watermark .watermark-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  display: block;
+  border-radius: 6px;
+  background: transparent;
+}
+
+/* Watermark text styling */
+.site-watermark .watermark-text {
+  line-height: 1;
+  color: var(--secondary-color);
+  font-weight: 600;
+}
+.site-watermark .watermark-text strong {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+/* Slightly reduce footprint on very small screens */
+@media (max-width: 420px) {
+  .site-watermark { right: 0.5rem; bottom: 0.5rem; padding: 6px 8px; font-size: 0.8rem; }
+  .site-watermark .watermark-logo { width: 30px; height: 30px; }
+}
+
+/* --- Global & Typography --- */
+:root {
+    --primary-blue: #007bff; /* Main brand blue */
+    --secondary-blue: #1E90FF; /* Bright blue for accents */
+    --dark-bg: #1A2238; /* Deep dark background */
+    --card-bg: #283049; /* Slightly lighter card background */
+    --text-light: #f5f5f5;
+    --text-muted: #a0a0a0;
+    --success-green: #28a745;
+    --google-red: #fa0000;
+    --shadow-deep: 0 10px 30px rgba(0, 0, 0, 0.4);
+    --top-header: #ffffff;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.error-message {
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: #dc2626;
+  display: none;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* --- Header Styling (Unique Look) --- */
+.top-bar {
+    background: var(--top-header);
+    padding: 10px 40px;
+    border-bottom: 2px solid var(--primary-blue);
+    box-shadow: var(--shadow-deep);
+}
+
+.top-bar-inner {
+    display: flex;
+    /* justify-content: space-between;  <-- If you had this, consider changing or removing */
+    justify-content: center; /* This will center the entire brand block (logo + text) */
+    align-items: center;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+}
+
+.college-logo {
+    height: 140px;
+    width: auto;
+    margin-right: 15px;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column; /* Stack name and sub-name vertically */
+    align-items: center;    /* Center horizontally */
+    text-align: center;     /* Fallback/additional centering */
+
+    line-height: 1.2;
+}
+
+.college-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    /* Remove any explicit text-align here if it was left/right */
+
+  
+}
+
+.sub-name {
+   font-size: 1rem;
+    font-weight: 400;
+    color: var(--google-red);
+    letter-spacing: 1px;
+    /* Remove any explicit text-align here if it was left/right */
+}
+
+.platform-subtitle {
+  font-size: 1.125rem;
+  color: var(--google-red);
+  line-height: 1.6;
+  font-weight: 400;
+  padding-bottom: 7px;
+}
+.platform-subtitle1 {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-weight: 400;
+  padding-bottom: 7px;
+}
+.platform-subtitle2 {
+  font-size: 1.125rem;
+  color: var(--google-red);
+  line-height: 1.6;
+  font-weight: 400;
+  padding-bottom: 7px;
+}
+.header-nav {
+    display: flex;
+    align-items: center;
+}
+
+.header-nav a {
+    color: var(--text-light);
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.header-nav a:hover {
+    color: var(--secondary-blue);
+}
+
+.secondary-logo-img {
+    height: 140px;
+    margin-left: 25px;
+}
+
+/* --- Main Content & Background --- */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+}
+
+/* Decorative Circles for visual interest */
+.decorative-circle {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(var(--secondary-blue), rgba(30, 144, 255, 0));
+    opacity: 0.1;
+    filter: blur(80px);
+    pointer-events: none;
+}
+.circle-1 { top: 10%; left: 15%; }
+.circle-2 { bottom: 5%; right: 10%; }
+
+/* --- Login Card Styling --- */
+.login-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    z-index: 10;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.portal-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 5px;
+}
+
+.tagline {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* User Toggle */
+.user-toggle {
+    display: flex;
+    background: #1e263d;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 4px;
+}
+
+.toggle-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 10px 0;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.toggle-btn.active {
+    background: var(--primary-blue);
+    color: var(--text-light);
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
+}
+
+/* Input Fields */
+.input-group {
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 12px 12px 45px; /* Space for icon */
+    background: #1e263d;
+    border: 1px solid #3d4a6c;
+    border-radius: 6px;
+    color: var(--text-light);
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-group input:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+.input-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.toggle-password:hover {
+    color: var(--text-light);
+}
+
+/* Options Row */
+.options-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 0.9rem;
+}
+
+.remember-me {
+    color: var(--text-muted);
+}
+
+.forgot-link {
+    color: var(--secondary-blue);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.forgot-link:hover {
+    color: var(--text-light);
+}
+
+/* Action Buttons */
+.action-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, box-shadow 0.3s, transform 0.1s;
+    text-decoration: none; /* For the Google button */
+}
+
+.access-portal-btn {
+    background-color: var(--primary-blue);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+}
+
+.access-portal-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+    color: var(--text-muted);
+}
+
+.divider-line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #3d4a6c;
+}
+
+.divider-text {
+    padding: 0 15px;
+    font-size: 0.8rem;
+}
+
+.google-signin-btn {
+    background-color: var(--google-red);
+    color: white;
+    margin-bottom: 20px;
+}
+
+.google-signin-btn:hover {
+    background-color: #c5372c;
+    transform: translateY(-1px);
+}
+
+.google-icon {
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+
+/* Card Footer */
+.card-footer {
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid #3d4a6c;
+}
+
+.security-badge {
+    display: inline-flex;
+    align-items: center;
+    color: var(--success-green);
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.security-badge .badge-icon {
+    margin-right: 8px;
+    font-size: 1.1rem;
+}
+
+.system-check {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* --- Footer Styling --- */
+.site-footer {
+    padding: 15px 40px;
+    background: var(--card-bg);
+    border-top: 1px solid var(--primary-blue);
+    text-align: center;
+    font-size: 0.85rem;
+    color: white;
+}
+
+.site-footer p {
+    margin: 5px 0;
+}
+
+.footer-icon {
+    margin-right: 5px;
+    color: var(--secondary-blue);
+}
+.signin-button {
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+  color: var(--white);
+  border: none;
+  border-radius: 50px;
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  box-shadow: 0 8px 25px var(--shadow-light);
+}

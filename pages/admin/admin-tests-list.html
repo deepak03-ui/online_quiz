@@ -1,0 +1,117 @@
+<style>
+  .test-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  .test-list-table th, .test-list-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+  }
+  .test-list-table th {
+    background-color: #f9fafb;
+    font-weight: 600;
+    color: #4b5563;
+  }
+  .test-list-table tr:hover {
+    background-color: #f3f4f6;
+  }
+  .filter-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 1rem; 
+    margin-bottom: 1.5rem;
+  }
+  .form-label { display: block; margin-bottom: 5px; font-weight: 500; }
+  .form-select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+  .status-badge {
+    padding: 4px 8px;
+    border-radius: 9999px; /* Pill shape */
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .status-upcoming { background-color: #bfdbfe; color: #1e40af; }
+  .status-active { background-color: #d1fae5; color: #065f46; }
+  .status-finished { background-color: #fee2e2; color: #991b1b; }
+</style>
+
+<div class="page-header-dynamic">
+    <h1 class="page-title">Test Bank Management</h1>
+</div>
+
+<div class="content-card">
+    <h2 style="margin-top:0;">Filter Tests</h2>
+    
+    <div class="filter-grid">
+        <div>
+          <label class="form-label">Department</label>
+          <select class="form-select" id="filter-department">
+              <option value="">All Departments</option>
+              </select>
+        </div>
+        
+        <div>
+          <label class="form-label">Year</label>
+          <select class="form-select" id="filter-year">
+              <option value="">All Years</option>
+              </select>
+        </div>
+        
+        <div>
+          <label class="form-label">Subject Code</label>
+          <select class="form-select" id="filter-subject">
+              <option value="">All Subjects</option>
+              </select>
+        </div>
+        
+        <div>
+          <label class="form-label">Status</label>
+          <select class="form-select" id="filter-status">
+              <option value="">All Statuses</option>
+              <option value="active">Active</option>
+              <option value="upcoming">Upcoming</option>
+              <option value="finished">Finished</option>
+          </select>
+        </div>
+    </div>
+    
+    <div class="filter-buttons" style="justify-content: flex-end;">
+        <button id="apply-filters-btn" type="button" class="btn-primary">Apply Filters</button>
+        <button id="reset-filters-btn" type="button" class="btn-secondary">Reset</button>
+    </div>
+</div>
+
+<div class="content-card" style="margin-top: 2rem;">
+    <h2 style="margin-top:0;">Available Tests (<span id="test-count">0</span>)</h2>
+    
+    <div id="test-list-container" style="overflow-x: auto;">
+        <table class="test-list-table">
+            <thead>
+                <tr>
+                    <th>Test ID</th>
+                    <th>Name</th>
+                    <th>Subject</th>
+                    <th>Dept/Year</th>
+                    <th>Questions</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="tests-tbody">
+                <tr><td colspan="9" class="text-center text-gray-500 p-8">Use filters or click "Apply Filters" to load tests.</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="module">
+    import { initTestBank } from './js/pages/admin-tests-list.js';
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        initTestBank();
+    });
+</script>

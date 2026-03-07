@@ -1,0 +1,173 @@
+<style>
+    /* Admin Dashboard Specific Styles */
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 2rem;
+    }
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+    .card {
+        background-color: white;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    .stat-icon {
+        padding: 12px;
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1;
+        margin: 0;
+        color: #1f2937;
+    }
+    .stat-label {
+        color: #6b7280;
+        font-size: 0.9rem;
+    }
+    .section-card {
+        background-color: white;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    @media (min-width: 1024px) {
+        .dashboard-grid {
+            grid-template-columns: 2fr 1fr; 
+        }
+    }
+</style>
+
+<div class="page-header-dynamic">
+    <h1 class="page-title">Admin Dashboard Overview</h1>
+    <p class="text-gray-600">Centralized view of system health and test activity.</p>
+</div>
+
+<div class="dashboard-grid mt-6">
+    
+    <div class="main-content space-y-8">
+        
+        <div class="stats-grid">
+            
+            <div class="card">
+                <div class="stat-icon bg-blue-600">
+                    <span class="material-symbols-outlined">person</span>
+                </div>
+                <div>
+                    <p class="stat-value" id="stat-total-students">0</p>
+                    <p class="stat-label">Total Registered Students</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="stat-icon bg-green-600">
+                    <span class="material-symbols-outlined">quiz</span>
+                </div>
+                <div>
+                    <p class="stat-value" id="stat-active-tests">0</p>
+                    <p class="stat-label">Active Tests Running</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="stat-icon bg-indigo-600">
+                    <span class="material-symbols-outlined">dataset</span>
+                </div>
+                <div>
+                    <p class="stat-value" id="stat-total-tests">0</p>
+                    <p class="stat-label">Total Tests in Bank</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="stat-icon bg-yellow-600">
+                    <span class="material-symbols-outlined">draft_orders</span>
+                </div>
+                <div>
+                    <p class="stat-value" id="stat-total-results">0</p>
+                    <p class="stat-label">Total Results Generated</p>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="section-card">
+            <h2 class="text-lg font-semibold mb-4">Activity Trend (Last 7 Days)</h2>
+            <div style="height: 300px;">
+                <canvas id="activity-bar-chart"></canvas>
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <h2 class="text-lg font-semibold mb-4">Recent Test Creations</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Test Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subject</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Questions</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created By</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recent-tests-tbody" class="bg-white divide-y divide-gray-200">
+                        <tr><td colspan="4" class="text-center py-4 text-gray-400">Loading recent tests...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="sidebar-content space-y-8">
+        
+        <div class="section-card">
+            <h3 class="text-lg font-semibold mb-4">System Health Status</h3>
+            <div class="space-y-3">
+                <div class="flex items-center justify-between text-sm">
+                    <span class="font-medium">Firestore DB Status:</span>
+                    <span id="health-db-status" class="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">Calculating...</span>
+                </div>
+                <div class="flex items-center justify-between text-sm">
+                    <span class="font-medium">Service Uptime:</span>
+                    <span id="health-uptime" class="text-gray-600">Calculating...</span>
+                </div>
+                <div class="flex items-center justify-between text-sm">
+                    <span id="health-sessions-label" class="font-medium">Active User Sessions:</span>
+                    <span id="health-sessions" class="text-gray-600">0</span>
+                </div>
+                <div class="flex items-center text-sm border-t pt-3 mt-3">
+                    <span class="material-symbols-outlined text-red-500 text-lg mr-2">warning</span>
+                    <span id="health-alert-log" class="text-red-500 text-xs">No critical alerts.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <h3 class="text-lg font-semibold mb-4">Quick Actions</h3>
+            <div class="space-y-3">
+                <button class="w-full btn-primary" onclick="window.location.hash = '#adminmanageTests.html'">Create New Test</button>
+                <button class="w-full btn-secondary" onclick="window.location.hash = '#system-management.html'">Manage System</button>
+                <button class="w-full btn-secondary" onclick="window.location.hash = '#admin-result-analytics.html'">View Analytics</button>
+            </div>
+        </div>
+        
+    </div>
+    
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>

@@ -1,0 +1,68 @@
+<!-- unit_test.html - Unit tests section -->
+<div id="unit-tests-root" class="space-y-6">
+  <div class="pb-2 border-b">
+    <h2 class="text-2xl font-bold text-navy">Unit Tests</h2>
+    <p class="text-sm text-gray-500 mt-1">Your scheduled unit tests grouped by subjects.</p>
+  </div>
+
+  <div id="unit-tests-list" class="space-y-6"></div>
+</div>
+
+<script>
+  // renderUnitTestsData(data) expects { subjects: [ { name, tests: [...] } ] }
+  function renderUnitTestsData(data) {
+    const root = document.getElementById('unit-tests-list');
+    if (!root) return;
+    root.innerHTML = '';
+
+    if (!data || !data.subjects || data.subjects.length === 0) {
+      root.innerHTML = `<div class="card text-gray-500">No unit tests available.</div>`;
+      return;
+    }
+
+    data.subjects.forEach(subject => {
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = `
+        <div class="mb-2 text-center">
+          <h3 class="inline-block bg-navy/10 text-navy px-4 py-2 rounded-full font-bold">${subject.name}</h3>
+        </div>
+        <div class="card">
+          <div class="grid test-grid">
+            ${subject.tests.map(t => testCardHtml(t)).join('')}
+          </div>
+        </div>
+      `;
+      root.appendChild(wrapper);
+    });
+  }
+
+  function testCardHtml(test) {
+    const btn = test.availability === 'available'
+      ? `<button data-test-id="${test.id}" class="btn-primary w-full py-2 rounded">${test.availability === 'available' ? 'Start Test' : ''}</button>`
+      : `<button disabled class="btn-disabled w-full py-2 rounded">${test.availability === 'upcoming' ? 'Upcoming' : 'Expired'}</button>`;
+    return `
+      <div class="p-3 border rounded-lg bg-white hover:shadow-md transition">
+        <div class="text-center mb-3">
+          <h4 class="font-bold">${test.title}</h4>
+        </div>
+        <div class="bg-gray-50 rounded p-3 mb-3">
+          <div class="grid grid-cols-2">
+            <div class="text-center">
+              <div class="text-lg font-bold text-navy">${test.details[0].value}</div>
+              <div class="text-xs text-navy font-semibold">${test.details[0].unit}</div>
+            </div>
+            <div class="text-center">
+              <div class="text-lg font-bold text-navy">${test.details[1].value}</div>
+              <div class="text-xs text-navy font-semibold">${test.details[1].unit}</div>
+            </div>
+          </div>
+        </div>
+        <div>${btn}</div>
+      </div>
+    `;
+  }
+</script>
+
+<style>
+  #unit-tests-root .test-grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;}
+</style>

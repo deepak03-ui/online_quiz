@@ -1,0 +1,49 @@
+<!-- aptitude.html - Aptitude tests section -->
+<div class="card">
+  <div class="flex items-center justify-between mb-4">
+    <div>
+      <h2 class="text-2xl font-bold" style="color:#c2410c">Aptitude</h2>
+      <p class="text-sm text-gray-500">Quantitative, logical reasoning and verbal assessments.</p>
+    </div>
+  </div>
+
+  <div id="aptitude-cards" class="test-grid"></div>
+</div>
+
+<script>
+  function renderAptitudeData(data) {
+    const root = document.getElementById('aptitude-cards');
+    if (!root) return;
+    root.innerHTML = '';
+
+    if (!data || !data.tests || data.tests.length === 0) {
+      root.innerHTML = '<div class="text-gray-500">No aptitude tests at the moment.</div>';
+      return;
+    }
+
+    data.tests.forEach(test => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="text-center mb-3">
+          <div class="w-14 h-14 bg-orange-500 rounded-lg flex items-center justify-center mx-auto mb-2">
+            <span class="material-symbols-outlined text-white">psychology</span>
+          </div>
+          <h4 class="font-semibold">${test.title}</h4>
+        </div>
+        <div class="bg-orange-50 rounded p-3 mb-3">
+          <div class="grid grid-cols-2 text-center">
+            <div><div class="font-bold text-orange-600">${test.details[0].value}</div><div class="text-xs font-semibold">${test.details[0].unit}</div></div>
+            <div><div class="font-bold text-orange-600">${test.details[1].value}</div><div class="text-xs font-semibold">${test.details[1].unit}</div></div>
+          </div>
+        </div>
+        <div>${test.availability === 'available' ? `<button data-test-id="${test.id}" class="btn-primary w-full py-2 rounded">Start</button>` : `<button disabled class="btn-disabled w-full py-2 rounded">${test.availability}</button>`}</div>
+      `;
+      root.appendChild(card);
+    });
+  }
+</script>
+
+<style>
+  /* small local style to match orange theme */
+</style>

@@ -1,0 +1,1005 @@
+:root {
+  /* admin_fire.css Palette Mapped to coo3style.css Variables */
+  --navy-blue: #0d2c54;     /* Mapped from --blue-dark */
+  --royal-blue: #1a5a96;    /* Mapped from --blue-med */
+  --sky-blue: #1a5a96;      /* Mapped from --blue-med */
+  --light-blue: #adcbe3;    /* Mapped from --blue-light */
+  --powder-blue: #f8f9fa;   /* Re-purposed to be the main background/hover color */
+
+  /* Removing Cream Palette & Replacing with admin_fire colors */
+  --cream: #f8f9fa;
+  --warm-cream: #f8f9fa;
+  --ivory: #ffffff;
+  --pearl: #f8fafc;
+  --off-white: #f1f5f9;
+
+  /* Text Colors from admin_fire */
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --text-muted: #6c757d;
+  --text-on-blue: #ffffff;
+
+  /* Backgrounds from admin_fire */
+  --bg-primary: #f8f9fa;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-subtle: #f8fafc;
+
+  /* Borders & Shadows from admin_fire */
+  --border-light: #dee2e6;
+  --border-medium: #dee2e6;
+  --border-accent: var(--royal-blue);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Danger Colors from admin_fire */
+  --danger-color: #dc3545;
+  --danger-hover: #c82333;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', 'Georgia', serif;
+  margin: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* --- BACKGROUND PATTERN (Removed as it's tied to cream theme) --- */
+.background-pattern,
+.background-pattern::before {
+  display: none;
+}
+
+/* This is the style for your red delete button */
+.btn-delete-secondary {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+    color: white;
+}
+
+/* This is the base style for all your buttons */
+.btn-primary, .btn-secondary, .add-admin-btn, .btn-delete-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 6px;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+/* Style for edit button to make it look secondary */
+.btn-edit-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 6px;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--border-light); /* Use border-light */
+    transition: all 0.2s ease;
+    text-decoration: none;
+    background-color: var(--bg-card); /* Use card background */
+    color: var(--text-primary); /* Use primary text color */
+}
+
+.btn-edit-secondary:hover {
+    background-color: var(--powder-blue); /* Use powder-blue for hover */
+    border-color: #adb5bd; /* Slightly darker border on hover */
+    transform: translateY(-1px); /* Optional: slight lift effect */
+}
+
+
+/* --- CLASSIC TOP BAR --- */
+.top-bar {
+  background: linear-gradient(135deg, var(--navy-blue) 0%, var(--royal-blue) 100%);
+  border-bottom: 2px solid var(--light-blue);
+  padding: 1.5rem 2rem;
+  position: relative;
+  z-index: 100;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-lg);
+}
+
+.top-bar::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--light-blue);
+}
+
+.brand-logo {
+    width: 50px;
+    height: 50px;
+  }
+.top-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  justify-content: center;
+  position: relative;
+}
+
+.logo-container {
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.college-name {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--text-on-blue);
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  font-family: 'Inter', serif;
+}
+
+.sub-name {
+  font-size: 1.1rem;
+  color: var(--light-blue);
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* --- MAIN LAYOUT --- */
+.main-container {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.main-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background: var(--bg-primary);
+}
+
+/* --- CLASSIC SIDEBAR --- */
+.sidebar {
+  width: 18rem;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-light);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.sidebar-header {
+  padding: 2rem 1.5rem 1.5rem;
+  border-bottom: 2px solid var(--light-blue);
+  text-align: center;
+  background: linear-gradient(135deg, var(--navy-blue) 0%, var(--royal-blue) 100%);
+  position: relative;
+}
+
+.sidebar-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-on-blue);
+  margin: 0;
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-nav {
+  flex-grow: 1;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid transparent;
+  background: transparent;
+  position: relative;
+}
+
+.nav-link:hover {
+  background: var(--powder-blue);
+  border-color: var(--border-light);
+  color: var(--navy-blue);
+}
+
+.nav-link.active {
+  background: var(--royal-blue);
+  color: var(--text-on-blue);
+  font-weight: 600;
+  border-color: var(--royal-blue);
+  box-shadow: var(--shadow-md);
+}
+
+.nav-link.active .nav-icon {
+  color: var(--light-blue);
+}
+
+.nav-icon {
+  margin-right: 1rem;
+  font-size: 1.2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.nav-text {
+  position: relative;
+  z-index: 1;
+}
+
+.sidebar-footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border-light);
+  background: var(--powder-blue);
+}
+
+.sign-out-btn {
+  width: 100%;
+  background: var(--danger-color);
+  color: var(--text-on-blue);
+  font-weight: 600;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  font-size: 0.95rem;
+}
+
+.sign-out-btn:hover {
+  background: var(--danger-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.sign-out-icon {
+  margin-right: 0.75rem;
+  font-size: 1.2rem;
+}
+
+/* --- CONTENT STYLES --- */
+.main-section {
+  padding: 2rem;
+  flex-grow: 1;
+}
+
+.main-footer {
+  background: var(--navy-blue);
+  padding: 1.25rem;
+  text-align: center;
+  border-top: 2px solid var(--light-blue);
+  color: var(--text-on-blue);
+  font-size: 0.9rem;
+  font-weight: 500;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+
+/* --- CARD, TABLE, FORM STYLES --- */
+.content-card, .filter-card, .table-section {
+  background: var(--bg-card);
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-light);
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.content-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--royal-blue), var(--light-blue));
+  border-radius: 12px 12px 0 0;
+}
+
+.page-header-dynamic {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--navy-blue);
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.25px;
+}
+
+.form-select, .form-input {
+  display: block;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid var(--border-light);
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.form-select:focus, .form-input:focus {
+  outline: none;
+  border-color: var(--royal-blue);
+  box-shadow: 0 0 0 3px rgba(26, 90, 150, 0.1);
+  background: var(--bg-card);
+}
+
+.form-select:disabled, .form-input:disabled {
+    background-color: var(--off-white);
+    cursor: not-allowed;
+}
+
+.filter-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary, .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  letter-spacing: 0.25px;
+}
+
+.btn-primary {
+  background: var(--royal-blue);
+  color: var(--text-on-blue);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background: var(--navy-blue);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-color: var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  background: var(--powder-blue);
+  border-color: #adb5bd;
+}
+
+.table-overflow {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th, .data-table td {
+  padding: 1.25rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.data-table thead {
+  background: var(--powder-blue);
+}
+
+.data-table th {
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.data-table tbody tr:hover {
+  background: var(--powder-blue);
+}
+
+/* Profile Page Specific Styles */
+.profile-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: start; }
+.detail-item { display: flex; padding: 1rem 0; border-bottom: 1px solid var(--border-light); }
+.detail-item:last-child { border-bottom: none; }
+.detail-label { font-weight: 600; color: var(--text-secondary); width: 150px; }
+.detail-value { color: var(--text-primary); }
+.subject-tag {
+  display: inline-block; background-color: var(--powder-blue); color: var(--navy-blue);
+  padding: 0.5rem 1rem; border-radius: 20px; margin: 0.25rem; font-weight: 500;
+}
+.hidden-section { display: none; }
+.q-upload-section { border: 1px solid var(--border-light); border-radius: 0.5rem; padding: 1rem; margin-top: 1rem; }
+.q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+.question-type-chooser { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+
+/* Score Dashboard */
+.analysis-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+.stat-card { background: #ffffff; border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow-md); display: flex; align-items: center; gap: 1.5rem; border-left: 5px solid var(--royal-blue); }
+.stat-card .card-icon { font-size: 3rem; color: var(--royal-blue); background-color: var(--powder-blue); padding: 0.75rem; border-radius: 50%;}
+.stat-card .card-title { font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
+.stat-card .card-value { font-size: 2rem; font-weight: 700; color: var(--text-primary); }
+.charts-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+.chart-container { background: #ffffff; border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow-md); }
+.chart-container h3 { margin-top: 0; margin-bottom: 0.5rem; font-size: 1.25rem; color: var(--navy-blue); }
+.chart-container p { font-size: 0.9rem; color: var(--text-muted); margin-top: 0; margin-bottom: 1rem; }
+
+@media (max-width: 992px) { .charts-grid, .profile-grid { grid-template-columns: 1fr; } }
+@media (max-width: 768px) {
+  .college-name { font-size: 1.5rem; }
+  .sub-name { font-size: 0.95rem; }
+  .main-section { padding: 1rem; }
+  .content-card { padding: 1.5rem; }
+  .page-title { font-size: 1.6rem; }
+  .logo-placeholder { width: 80px; height: 80px; }
+  .logo-placeholder img { width: 70px; height: 70px; }
+}
+/* === STYLES FOR CUSTOM MULTI-SELECT DROPDOWN === */
+/* === ENHANCED STYLES FOR CUSTOM MULTI-SELECT DROPDOWN === */
+
+#test-section {
+  display: none; /* Hide the original select element */
+}
+
+.custom-multiselect-container {
+  position: relative;
+  user-select: none;
+  width: 100%;
+}
+
+.custom-multiselect-trigger {
+  display: block;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid var(--border-light);
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  font-size: 0.95rem;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 44px;
+  line-height: 1.5;
+}
+
+.custom-multiselect-trigger::after {
+  content: '▼';
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.2s ease;
+  pointer-events: none;
+}
+
+.custom-multiselect-container.open .custom-multiselect-trigger::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.custom-multiselect-container.open .custom-multiselect-trigger,
+.custom-multiselect-trigger:hover:not([style*="pointer-events: none"]) {
+  border-color: var(--royal-blue);
+  box-shadow: 0 0 0 3px rgba(26, 90, 150, 0.1);
+}
+
+/* Disabled state */
+.custom-multiselect-container[style*="pointer-events: none"] .custom-multiselect-trigger {
+  background-color: var(--off-white);
+  cursor: not-allowed;
+  color: var(--text-muted);
+}
+
+.custom-multiselect-panel {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  background: var(--bg-card);
+  border-radius: 6px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  max-height: 280px;
+  overflow-y: auto;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.custom-multiselect-container.open .custom-multiselect-panel {
+  display: block;
+}
+
+.custom-multiselect-option {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid var(--border-light);
+  user-select: none;
+}
+
+.custom-multiselect-option:last-child {
+  border-bottom: none;
+}
+
+.custom-multiselect-option:hover {
+  background-color: var(--powder-blue);
+}
+
+.custom-multiselect-option:first-child {
+  background-color: var(--bg-subtle);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-medium);
+}
+
+.custom-multiselect-option:first-child:hover {
+  background-color: var(--light-blue);
+}
+
+.custom-multiselect-option input[type="checkbox"] {
+  margin-right: 0.75rem;
+  accent-color: var(--royal-blue);
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.custom-multiselect-option span {
+  flex: 1;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.custom-multiselect-option:first-child span {
+  color: var(--navy-blue);
+}
+
+/* Scrollbar styling for the panel */
+.custom-multiselect-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-multiselect-panel::-webkit-scrollbar-track {
+  background: var(--bg-subtle);
+  border-radius: 0 6px 6px 0;
+}
+
+.custom-multiselect-panel::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: 4px;
+}
+
+.custom-multiselect-panel::-webkit-scrollbar-thumb:hover {
+  background: var(--royal-blue);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .custom-multiselect-trigger {
+    font-size: 0.9rem;
+    padding: 0.65rem 2.5rem 0.65rem 0.85rem;
+  }
+
+  .custom-multiselect-option {
+    padding: 0.65rem 0.85rem;
+  }
+
+  .custom-multiselect-panel {
+    max-height: 240px;
+  }
+}
+
+.btn-danger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 6px;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    text-decoration: none;
+
+    /* These are the danger/delete colors from your file */
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: var(--danger-hover);
+    border-color: var(--danger-hover);
+}
+.table-actions { display: flex; gap: 0.5rem; justify-content: center; }
+.table-header-actions {
+  display: flex;
+  justify-content: space-between; /* This is the magic part */
+  align-items: center;
+  flex-wrap: wrap; /* Allows items to wrap on small screens */
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-light);
+}
+/* --- Add This to coo3style.css --- */
+
+/* This new class will be the header bar above your table.
+  It uses flexbox to push the title to the left and
+  the buttons to the right.
+*/
+.table-header-actions {
+  display: flex;
+  justify-content: space-between; /* This is the magic part */
+  align-items: center;
+  flex-wrap: wrap; /* Allows items to wrap on small screens */
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+/* A simple style for the title on the left */
+.table-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--navy-blue);
+  margin: 0;
+}
+
+/* This new class holds all your buttons on the right */
+.table-actions-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem; /* Spaces out the buttons */
+}
+/* --- Modal Styles --- */
+/* Add this CSS to your main stylesheet */
+
+.modal-backdrop {
+    /* Hidden by default, shown with JS */
+    display: none;
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+
+    /* Use flexbox to center the modal */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 25px; /* Padding will be handled by header/body */
+    border: 1px solid #888;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px; /* Max width */
+    box-shadow: var(--shadow-lg); /* Use shadow from theme */
+    z-index: 1001;
+    max-height: 90vh; /* Max height */
+    overflow: hidden; /* We will make the content scroll */
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Modal Header --- */
+.modal-content h3 {
+  background: linear-gradient(135deg, var(--navy-blue) 0%, var(--royal-blue) 100%); /* Use gradient */
+  color: white;
+  padding: 1rem 1.5rem;
+  margin: -25px -25px 20px -25px; /* Spans the padding */
+  border-radius: 8px 8px 0 0;
+  font-size: 1.25rem;
+  border-bottom: 2px solid var(--light-blue); /* Add border like top bar */
+}
+
+/* The Close Button (X) */
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: var(--light-blue); /* Use light blue */
+    font-size: 28px;
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10; /* Ensure it's above the h3 */
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: white; /* White on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Modal Form Styles */
+#coord-modal-form,
+#student-modal-form,
+#faculty-modal-form, /* Add faculty form id */
+#student-edit-modal form, /* Add student edit modal form id */
+#faculty-edit-modal form { /* Add faculty edit modal form id */
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Increased gap */
+    overflow-y: auto; /* Make the form scrollable */
+    padding: 5px; /* Add a little padding */
+}
+#coord-modal-form label,
+#student-modal-form label,
+#faculty-modal-form label, /* Add faculty form id */
+#student-edit-modal label, /* Add student edit modal form id */
+#faculty-edit-modal label { /* Add faculty edit modal form id */
+    font-weight: 600;
+    color: var(--text-secondary); /* Use secondary text color */
+    font-size: 0.9rem; /* Slightly smaller label */
+}
+#coord-modal-form input[type="text"],
+#coord-modal-form input[type="email"],
+#coord-modal-form select,
+#student-modal-form input[type="text"],
+#student-modal-form input[type="email"],
+#student-modal-form select,
+#faculty-modal-form input[type="text"], /* Add faculty form id */
+#faculty-modal-form input[type="email"], /* Add faculty form id */
+#faculty-modal-form select, /* Add faculty form id */
+#student-edit-modal input[type="text"], /* Add student edit modal form id */
+#student-edit-modal input[type="email"], /* Add student edit modal form id */
+#student-edit-modal select, /* Add student edit modal form id */
+#faculty-edit-modal input[type="text"], /* Add faculty edit modal form id */
+#faculty-edit-modal input[type="email"], /* Add faculty edit modal form id */
+#faculty-edit-modal select { /* Add faculty edit modal form id */
+    width: 100%;
+    padding: 0.75rem 1rem; /* Match other form inputs */
+    border: 1px solid var(--border-light); /* Use theme border */
+    border-radius: 6px; /* Match other form inputs */
+    box-sizing: border-box;
+    font-size: 0.95rem; /* Match other form inputs */
+    transition: all 0.3s ease; /* Match other form inputs */
+}
+#coord-modal-form input[type="text"]:focus,
+#coord-modal-form input[type="email"]:focus,
+#coord-modal-form select:focus,
+#student-modal-form input[type="text"]:focus,
+#student-modal-form input[type="email"]:focus,
+#student-modal-form select:focus,
+#faculty-modal-form input[type="text"]:focus, /* Add faculty form id */
+#faculty-modal-form input[type="email"]:focus, /* Add faculty form id */
+#faculty-modal-form select:focus, /* Add faculty form id */
+#student-edit-modal input[type="text"]:focus, /* Add student edit modal form id */
+#student-edit-modal input[type="email"]:focus, /* Add student edit modal form id */
+#student-edit-modal select:focus, /* Add student edit modal form id */
+#faculty-edit-modal input[type="text"]:focus, /* Add faculty edit modal form id */
+#faculty-edit-modal input[type="email"]:focus, /* Add faculty edit modal form id */
+#faculty-edit-modal select:focus { /* Add faculty edit modal form id */
+    outline: none;
+    border-color: var(--royal-blue);
+    box-shadow: 0 0 0 3px rgba(26, 90, 150, 0.1);
+}
+
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem; /* Increased gap */
+    margin-top: 1.5rem; /* Increased margin */
+    flex-shrink: 0; /* Prevent action bar from scrolling */
+    padding-top: 1.5rem; /* Add padding */
+    border-top: 1px solid var(--border-light); /* Use theme border */
+}
+
+/* Specific styles for display-only info in modals */
+.modal-content p {
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+.modal-content p strong {
+    color: var(--text-primary);
+    margin-right: 0.5em;
+}
+.modal-content span[id$="-display"], /* Target display spans */
+.modal-content span[id$="-departments"],
+.modal-content span[id$="-years"],
+.modal-content span[id$="-sections"],
+.modal-content span[id$="-subjectCodes"],
+.modal-content span[id$="-subjectName"] {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* --- Add this to coo3style.css --- */
+
+/* Styles for the multi-select box in the modal */
+#coord-modal-form select[multiple] {
+  height: 120px; /* Give it a set height */
+  padding: 0.5rem; /* Padding for the options */
+  overflow-y: auto; /* Allow scrolling */
+  background-color: var(--bg-card); /* White background */
+}
+
+/* Style for the options inside the multi-select */
+#coord-modal-form select[multiple] option {
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  margin: 2px;
+}
+
+/* Style for selected options */
+#coord-modal-form select[multiple] option:checked {
+  background-color: var(--royal-blue); /* Use theme color */
+  color: var(--text-on-blue); /* White text */
+}
+
+/* Style for options on hover */
+#coord-modal-form select[multiple] option:hover {
+  background-color: var(--powder-blue); /* Use theme hover */
+}
+
+
+/* --- Footer Styling --- */
+.site-footer {
+    padding: 15px 40px;
+    background: var(--card-bg);
+    border-top: 1px solid var(--primary-blue);
+    text-align: center;
+    font-size: 0.85rem;
+    color: rgb(6, 4, 27);
+}
+
+.site-footer p {
+    margin: 5px 0;
+}
+
+.college-logo {
+    height: 80px;
+    width: auto;
+    margin-right: 15px;
+}
+.secondary-logo-img {
+    height: 80px;
+    margin-left: 15px;
+}
+.college-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #f70404;
+    /* Remove any explicit text-align here if it was left/right */
+
+  
+}
+
+.sub-name1 {
+   font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--off-white);
+    letter-spacing: 1px;
+    /* Remove any explicit text-align here if it was left/right */
+}
+.sub-name2 {
+   font-size: 1rem;
+    font-weight: 400;
+    color: #3efd2d;
+    letter-spacing: 1px;
+    /* Remove any explicit text-align here if it was left/right */
+}

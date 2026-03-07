@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Faculty Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  <link rel="icon" href="panimalar.png" type="image/png">
+  <link rel="stylesheet" href="./css/style2.css">
+</head>
+<body>
+
+<div class="background-pattern"></div>
+
+<header class="top-bar" role="banner" aria-label="Platform header">
+    <div class="top-bar-inner">
+      <div class="brand">
+        <div class="logo-container">
+          <div class="logo-placeholder">
+            <img src="/images/panimalar_logo.png" alt="College logo" class="college-logo">
+          </div>
+          <div class="logo-ring"></div>
+        </div>
+        <div class="brand-text">
+          <div class="college-name">PANIMALAR ENGINEERING COLLEGE</div>
+                        <div class="sub-name1"><b>JAISAKTHI EDUCATIONAL TRUST</b></div>
+                        <div class="sub-name2">AN AUTONOMOUS INSTITUTION</div>
+        </div>
+         <img src="./images/25years_logo-removebg1.png" alt="25th Anniversary Celebration" class="secondary-logo-img" aria-hidden="true">
+      </div>
+      
+      </div>
+  </header>
+
+<div class="main-container">
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <div id="faculty-info">
+        <h2 id="faculty-name-sidebar" class="sidebar-title">Welcome</h2>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="nav-link active" data-page="my_profile">
+        <span class="material-icons nav-icon">account_circle</span>
+        <span class="nav-text">My Profile</span>
+      </a>
+      <a class="nav-link" data-page="manage_students">
+        <span class="material-icons nav-icon">school</span>
+        <span class="nav-text">Student Details</span>
+      </a>
+      <a class="nav-link" data-page="view_score">
+        <span class="material-icons nav-icon">grading</span>
+        <span class="nav-text">View Score</span>
+      </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <button id="sign-out-btn" class="sign-out-btn">
+        <span class="material-icons sign-out-icon">logout</span> Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <div class="main-content-wrapper">
+    <main id="dynamic-content-area" class="main-section"></main>
+    <footer class="site-footer">
+        <p class="powered-by">
+        <i class="fas fa-microchip"></i>
+        &copy Department of Artificial Intelligence and Data Science, All Rights Reserved. </p> 
+             <p class="company-details">
+             
+             </p>
+    </footer>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="./js/portals/faculty/main.js" type="module"></script>
+
+</body>
+</html>

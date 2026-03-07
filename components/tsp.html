@@ -1,0 +1,56 @@
+<!-- tsp.html - Technical skills section (TSP) -->
+<div class="card">
+  <div class="flex items-center justify-between mb-4">
+    <div>
+      <h2 class="text-2xl font-bold text-navy">Technical Skills</h2>
+      <p class="text-sm text-gray-500">Hands-on and compiler-style assessments.</p>
+    </div>
+  </div>
+
+  <div id="tsp-cards" class="test-grid"></div>
+</div>
+
+<script>
+  // renderTechnicalSkillsData expects { tests: [...] }
+  function renderTechnicalSkillsData(data) {
+    const root = document.getElementById('tsp-cards');
+    if (!root) return;
+    root.innerHTML = '';
+
+    if (!data || !data.tests || data.tests.length === 0) {
+      root.innerHTML = '<div class="text-gray-500">No technical skills tests available.</div>';
+      return;
+    }
+
+    data.tests.forEach(test => {
+      const el = document.createElement('div');
+      el.className = 'card test-card';
+      el.innerHTML = `
+        <div class="text-center">
+          <div class="w-16 h-16 bg-gradient-to-br from-navy to-navy-dark rounded-lg flex items-center justify-center mx-auto mb-3">
+            <span class="material-symbols-outlined text-white">code</span>
+          </div>
+          <h3 class="font-semibold">${test.title}</h3>
+        </div>
+        <div class="bg-navy/5 rounded p-3 my-3">
+          <div class="grid grid-cols-2 text-center">
+            <div>
+              <div class="font-bold text-navy">${test.details[0].value}</div>
+              <div class="text-xs text-navy font-semibold">${test.details[0].unit}</div>
+            </div>
+            <div>
+              <div class="font-bold text-navy">${test.details[1].value}</div>
+              <div class="text-xs text-navy font-semibold">${test.details[1].unit}</div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-auto">${test.availability === 'available' ? `<button data-test-id="${test.id}" class="btn-primary w-full py-3 rounded">Start</button>` : `<button disabled class="btn-disabled w-full py-3 rounded">${test.availability}</button>`}</div>
+      `;
+      root.appendChild(el);
+    });
+  }
+</script>
+
+<style>
+  .test-card{display:flex;flex-direction:column;min-height:240px;}
+</style>

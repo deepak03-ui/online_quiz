@@ -1,0 +1,60 @@
+<div class="page-header-dynamic"><h1 class="page-title">Manage Students</h1></div>
+<div class="filter-card">
+  <div class="filter-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+    <div><label class="form-label">Name</label><input class="form-input" id="student-filter-name" placeholder="e.g., John" type="text"/></div>
+    <div><label class="form-label">Roll No.</label><input class="form-input" id="student-filter-rollno" placeholder="e.g., 21AD" type="text"/></div>
+    <div><label class="form-label">Register No.</label><input class="form-input" id="student-filter-regno" placeholder="e.g., 212721" type="text"/></div>
+    <div><label class="form-label">Email</label><input class="form-input" id="student-filter-email" placeholder="e.g., john@ex" type="email"/></div>
+    <div><label class="form-label">Year</label><select class="form-select" id="student-filter-year"></select></div>
+    <div><label class="form-label">Department</label><select class="form-select" id="student-filter-department"></select></div>
+    <div><label class="form-label">Section</label><select class="form-select" id="student-filter-section"></select></div>
+  </div>
+  <div class="filter-buttons">
+    <button id="student-apply-filter-btn" class="btn-primary">Apply Filter</button>
+    <button id="student-clear-filter-btn" class="btn-secondary">Clear Filter</button>
+   
+    
+  </div>
+</div>
+ <div id="student-bulk-upload-section" class="content-card" style="margin-top: 2rem; display:none;">
+  <h3>Bulk Upload Students</h3>
+  <p>Column headers must be: <strong>Name, Email, RollNo, RegNo, Year, Section, Department</strong>.</p>
+  <div class="action-bar" style="border-top: none; padding-top: 1rem;">
+      <button id="download-student-template-btn" class="btn-secondary">Download Format</button>
+      <div class="filter-buttons" style="align-items: center; gap: 0.5rem;">
+          <input class="form-input" id="student-file-upload" type="file" accept=".xlsx"/>
+          <button class="btn-primary" id="student-upload-button" type="button">Upload</button>
+      </div>
+  </div>
+</div>
+<div class="table-section" style="margin-top: 2rem;">
+
+  <div class="pagination-controls" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+    <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;"> <div class="filter-item">
+          <label for="student-page-size-select">Show Entries:</label>
+          <select id="student-page-size-select" class="filter-select">
+              <option value="25">25</option>
+              <option value="50" selected>50</option>
+              <option value="100">100</option>
+          </select>
+      </div>
+      <div class="page-navigation">
+          <button id="student-prev-btn" class="btn-secondary">Previous</button>
+          <span id="student-page-info">Page 1</span>
+          <button id="student-next-btn" class="btn-secondary">Next</button>
+      </div>
+    </div>
+    
+    <div class="table-actions-header">
+
+      
+    </div>
+  </div>
+  
+  <div class="table-overflow">
+    <table class="data-table">
+      <thead><tr><th class="col-short">S.No</th><th>Name</th><th class="col-medium">RollNo</th><th class="col-medium">Reg No</th><th class="col-email">Email</th><th class="col-short">Year</th><th class="col-short">Dept</th><th class="col-short">Section</th></tr></thead>
+      <tbody id="students-table-body"></tbody>
+    </table>
+  </div>
+</div>

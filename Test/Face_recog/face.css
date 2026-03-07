@@ -1,0 +1,703 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(180deg, #f9f9f9 0%, #ffffff 100%);
+    color: #1d1d1d;
+    overflow: hidden; /* <-- ADD THIS LINE */
+}
+
+.container {
+    width: 100%;
+    height: 100%; /* <-- CHANGE THIS from min-height */
+    display: flex;
+}
+
+/* Left Panel */
+.left-panel {
+    width: 30%;
+    background: #ffffff;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid #e5e5ea;
+}
+
+.logo-section {
+    margin-bottom: 30px;
+}
+
+.logo-section img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.system-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: #8e8e93;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.main-heading {
+    font-size: 28px;
+    font-weight: 800;
+    color: #000000;
+    line-height: 1.2;
+    letter-spacing: -1px;
+    margin-bottom: 14px;
+}
+
+.main-description {
+    font-size: 15px;
+    font-weight: 400;
+    color: #86868b;
+    line-height: 1.6;
+    max-width: 420px;
+}
+
+.divider-line {
+    width: 40px;
+    height: 2px;
+    background: #000000;
+    margin: 30px 0;
+}
+
+.features-list {
+    list-style: none;
+}
+
+.feature-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 18px;
+    align-items: flex-start;
+}
+
+.feature-indicator {
+    width: 7px;
+    height: 7px;
+    background: #000000;
+    border-radius: 50%;
+    margin-top: 7px;
+    flex-shrink: 0;
+}
+
+.feature-text {
+    font-size: 14px;
+    color: #5e5e60;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+/* Right Panel - FIXED */
+.right-panel {
+    width: 70%;
+    background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+    padding: 15px;
+    overflow-y: auto;
+    min-height: 0; /* <-- ADD THIS LINE */
+}
+
+.right-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.right-panel::-webkit-scrollbar-thumb {
+    background: #d1d1d6;
+    border-radius: 3px;
+}
+
+/* Stage Indicator */
+.stage-indicator {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.stage-dot {
+    width: 8px;
+    height: 8px;
+    background: #e5e5ea;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.stage-dot.active {
+    background: #000000;
+    width: 24px;
+    border-radius: 4px;
+}
+
+.stage-dot.completed {
+    background: #34c759;
+}
+
+.stage-number {
+    font-size: 11px;
+    font-weight: 700;
+    color: #8e8e93;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+.stage-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #000000;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+}
+
+.stage-description {
+    font-size: 15px;
+    color: #86868b;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Form Content - FIXED */
+.form-content {
+    max-width: 100%;
+}
+
+/* Camera Container - FIXED */
+.camera-section {
+    margin-bottom: 25px;
+}
+
+.camera-display {
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 3/4;
+    max-height: 45vh;   /* <-- ADD THIS LINE */
+    background: #000000;
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 0 auto 20px;
+    display: none;
+    position: relative;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.camera-display.active {
+    display: block;
+}
+
+#video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scaleX(-1);
+}
+
+.capture-counter {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    backdrop-filter: blur(10px);
+    white-space: nowrap;
+}
+
+/* Photos Grid - FIXED */
+.photos-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
+    margin: 0 auto 20px;
+    max-width: 400px;
+    display: none;
+}
+
+.photos-grid.active {
+    display: grid;
+}
+
+.photo-thumbnail {
+    aspect-ratio: 3/4;
+    background: #f5f5f7;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #e5e5ea;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.photo-thumbnail:hover {
+    border-color: #000000;
+}
+
+.photo-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.photo-check {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 20px;
+    height: 20px;
+    background: #34c759;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(52, 199, 89, 0.3);
+}
+
+/* Buttons - FIXED */
+.button-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.button-container.full {
+    grid-template-columns: 1fr;
+}
+
+.button {
+    padding: 14px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: -0.3px;
+    font-family: inherit;
+    text-align: center;
+}
+
+.button-primary {
+    background: navy;
+    color: white;
+    border: 1px solid whitesmoke;
+}
+
+.button-primary:hover {
+    background: #000080;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 128, 0.3);
+}
+
+.button-primary:active {
+    transform: scale(0.98);
+}
+
+.button-secondary {
+    background: #ffffff;
+    color: black;
+    border: 1.5px solid black;
+}
+
+.button-secondary:hover {
+    border-color: navy;
+    background: #f5f5f7;
+}
+
+.button-secondary:active {
+    transform: scale(0.98);
+}
+
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Success View */
+.success-view {
+    text-align: center;
+    display: none;
+}
+
+.success-view.active {
+    display: block;
+}
+
+.success-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    color: #34c759;
+}
+
+.success-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #000000;
+    margin-bottom: 12px;
+}
+
+.success-message {
+    padding: 30px;
+    font-size: 15px;
+    color: #86868b;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.enrollment-details {
+    background: #f5f5f7;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 70px;
+    text-align: left;
+    max-width: 500px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #e5e5ea;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    color: #86868b;
+    font-weight: 600;
+}
+
+.detail-value {
+    color: #000000;
+    font-weight: 700;
+}
+
+/* Hidden */
+.hidden {
+    display: none !important;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-box {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.modal-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.modal-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+}
+
+.modal-message {
+    font-size: 15px;
+    color: #5e5e60;
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+.modal-button {
+    width: 100%;
+    padding: 14px 24px;
+    background: navy;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: -0.3px;
+}
+
+.modal-button:hover {
+    background: #000080;
+}
+
+/* Loading Overlay */
+#loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: opacity 0.3s;
+}
+
+#loading-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid navy;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+#loading-message {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Messages */
+.message {
+    text-align: center;
+    min-height: 20px;
+    margin: 15px 0;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.message.error {
+    color: #ff3b30;
+}
+
+.message.success {
+    color: #34c759;
+}
+
+/* Stage Container */
+.stage-container {
+    width: 100%;
+}
+
+.stage-container.hidden {
+    display: none !important;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+
+    body {
+        overflow: auto; 
+    }
+    .container {
+        flex-direction: column;
+        height: auto; /* <-- ADD THIS LINE */
+        min-height: 100%; /* <-- ADD THIS LINE (optional, but good practice) */
+    }
+    .left-panel {
+        width: 100%; /* <-- FIX */
+        padding: 30px;
+        border-right: none; /* Add this */
+        border-bottom: 1px solid #e5e5ea; /* Add this */
+    }
+
+    .right-panel {
+        width: 100%; /* <-- FIX */
+        padding: 30px;
+    }
+
+    .main-heading {
+        font-size: 24px;
+    }
+
+    .stage-title {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 968px) {
+
+    body {
+        overflow: auto; 
+    }
+    .container {
+        height: auto;
+        flex-direction: column;
+    }
+
+    .left-panel {
+        width: 100%;
+        min-height: auto;
+        padding: 30px 24px;
+        border-right: none;
+        border-bottom: 1px solid #e5e5ea;
+    }
+
+    .right-panel {
+        width: 100%;
+        min-height: auto;
+        padding: 30px 24px;
+    }
+
+    .main-heading {
+        font-size: 22px;
+    }
+
+    .stage-title {
+        font-size: 26px;
+    }
+
+    .camera-display {
+        max-width: 100%;
+    }
+
+    .photos-grid {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 640px) {
+    .left-panel,
+    .right-panel {
+        padding: 20px;
+    }
+
+    .main-heading {
+        font-size: 20px;
+    }
+
+    .stage-title {
+        font-size: 22px;
+    }
+
+    .photos-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+    }
+
+    .button {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+}
+
+:root {
+    --primary-color: #0b5ed7;   /* The blue you requested */
+    --secondary-color: #6c757d; /* For the regular text */
+}
+
+
+/* --- New Watermark Styles (Replace the old ones) --- */
+.site-watermark {
+    /* Spacing and separator */
+    margin-top: 50px; 
+    padding-top: 20px;
+    border-top: 1px solid #e5e5ea; /* Uses your existing border color */
+    
+    /* NEW Layout: Logo on left, text on right */
+    display: flex;
+    align-items: center; /* Vertically center logo and text block */
+    gap: 12px;           /* Space between logo and text */
+    
+    opacity: 0.9;
+}
+
+/* Watermark logo */
+.watermark-logo {
+    height: 76px; /* A bit bigger */
+    width: 76px;  /* A bit bigger */
+    object-fit: contain;
+    flex-shrink: 0; /* Prevent logo from shrinking */
+    border-radius: 4px;
+}
+
+/* Container for the two lines of text */
+.watermark-text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px; /* Space between the two text lines */
+}
+
+/* Watermark text styling */
+.watermark-text {
+    font-size: 15px; /* A little bigger than 11px */
+    color: var(--secondary-color);
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.watermark-text strong {
+    color: var(--primary-color); /* Uses your blue */
+    font-weight: 700;
+}
+
+/* Responsive spacing for the watermark */
+@media (max-width: 1200px) {
+    .site-watermark {
+        margin-top: 40px;
+        padding-top: 20px;
+    }
+}
+
+@media (max-width: 968px) {
+    .site-watermark {
+        margin-top: 30px;
+        padding-top: 15px;
+    }
+}

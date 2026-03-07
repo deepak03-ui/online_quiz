@@ -1,0 +1,155 @@
+<style>
+  /* Base styles for layout */
+  .hidden-section { display: none; }
+  .q-upload-section { border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1rem; margin-top: 1rem; }
+  .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+  .question-type-chooser { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+  .question-type-chooser label { display: flex; align-items: center; gap: 0.5rem; font-weight: 500; }
+  /* Multiselect styles */
+  .custom-multiselect-container { position: relative; }
+  .custom-multiselect-trigger { 
+    display: block; width: 100%; padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; background-color: white; 
+    min-height: 38px; line-height: 20px; font-size: 14px; color: #333;
+  }
+  .custom-multiselect-container.open .custom-multiselect-panel { display: block; }
+  .custom-multiselect-panel {
+      display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 10;
+      border: 1px solid #d1d5db; border-radius: 4px; background-color: white; max-height: 200px; overflow-y: auto;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); padding: 8px;
+  }
+  .custom-multiselect-option { padding: 4px 0; font-size: 14px; }
+  .custom-multiselect-option input { margin-right: 8px; }
+  .form-label { display: block; margin-bottom: 5px; font-weight: 500; }
+  .form-select, .form-input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+  .filter-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1rem; }
+</style>
+
+<div class="page-header-dynamic"><h1 class="page-title">Create New Test</h1></div>
+
+<form id="test-form">
+  <div class="content-card">
+    <h2 style="margin-top:0;">1. Test Details</h2>
+    <div class="filter-grid" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1rem;">
+        
+        <div>
+          <label class="form-label">Department</label>
+          <select class="form-select" id="test-department">
+              <option value="" selected>-- Loading... --</option>
+          </select>
+        </div>
+        
+        <div>
+          <label class="form-label">Year</label>
+          <select class="form-select" id="test-year">
+              <option value="" selected>-- Loading... --</option>
+          </select>
+        </div>
+        
+       <div>
+        <label class="form-label">Sections</label>
+        <div id="section-multiselect-container" class="custom-multiselect-container" data-disabled="true" style="opacity: 0.5;">
+          <div class="custom-multiselect-trigger">-- Select Dept & Year --</div>
+          <div class="custom-multiselect-panel"></div>
+        </div>
+      </div>
+      
+        <div>
+            <label class="form-label">Subject Code</label>
+             <select class="form-select" id="test-subject-code" disabled>
+              <option value="" selected>-- Select Dept & Year First --</option>
+          </select>
+        </div>
+      </div>
+        
+    <div style="margin-top: 1rem;">
+        <label class="form-label">Test Type</label>
+        <select class="form-select" id="test-type-select">
+            <option value="" selected>-- Choose a type --</option>
+            <option value="monthly">Unit Test</option>
+            <option value="tsp">Skills Test (TSP)</option>
+            <option value="internal">Internal Test</option>
+        </select>
+        <div id="test-subtype-container" class="hidden-section" style="margin-top: 1rem;">
+          <label class="form-label">Test Sub-Type</label>
+          <select class="form-select" id="test-subtype-select"></select>
+        </div>
+    </div>
+
+
+    <div class="filter-grid" style="grid-template-columns: 1fr 1fr; gap: 1rem 2rem; margin-top: 1.5rem;">
+      <div><label class="form-label">Test ID</label><input class="form-input" id="test-id" placeholder="Enter a unique Test ID" type="text"/></div>
+      <div><label class="form-label">Test Name</label><input class="form-input" id="test-name" placeholder="Enter Test Name" type="text"/></div>
+      <div><label class="form-label">Start Date & Time</label><input class="form-input" id="start-date" type="datetime-local"/></div>
+      <div><label class="form-label">End Date & Time</label><input class="form-input" id="end-date" type="datetime-local"/></div>
+      <div><label class="form-label">Time per Question (seconds)</label><input class="form-input" id="time-per-question" placeholder="e.g., 60" type="number"/></div>
+      <div><label class="form-label">Number of Questions to Attend</label><input class="form-input" id="questions-to-attend" placeholder="e.g., 10" type="number"/></div>
+      
+      <div>
+        <label class="form-label">Proctoring Enabled?</label>
+        <select class="form-select" id="test-is-proctored">
+            <option value="" selected>-- Select an option --</option>
+            <option value="true">True</option>
+            <option value="false">False</option>
+        </select>
+      </div>
+      <div></div> </div>
+  </div>
+
+  <div class="content-card" style="margin-top: 2rem;">
+    <h2 style="margin-top:0;">2. Upload Questions</h2>
+    <p>Choose the question type to include. Only one file can be uploaded per test.</p>
+    
+    <div class="question-type-chooser">
+        <label><input type="radio" name="questionType" class="qt-checkbox" value="mcq"> MCQ</label>
+        <label><input type="radio" name="questionType" class="qt-checkbox" value="tf"> True/False</label>
+        <label><input type="radio" name="questionType" class="qt-checkbox" value="fill"> Fill in the Blanks</label>
+        <label><input type="radio" name="questionType" class="qt-checkbox" value="match"> Match the Following</label>
+        <label><input type="radio" name="questionType" class="qt-checkbox" value="compiler"> Compiler</label>
+    </div>
+    
+    <div id="upload-sections-container">
+        <div id="mcq-upload-section" class="q-upload-section hidden-section">
+            <div class="q-header"><h3 style="margin: 0;">Multiple Choice (MCQ)</h3><button type="button" class="btn-secondary download-template-btn" data-template-type="mcq">Download Format</button></div>
+            <p>Headers: <strong>question, optionA, optionB, optionC, optionD, correctAnswer, marks</strong></p>
+            <input class="form-input" id="mcq-file" type="file" accept=".xlsx" data-type="mcq" disabled/>
+        </div>
+        <div id="tf-upload-section" class="q-upload-section hidden-section">
+            <div class="q-header"><h3 style="margin: 0;">True / False</h3><button type="button" class="btn-secondary download-template-btn" data-template-type="tf">Download Format</button></div>
+            <p>Headers: <strong>question, correctAnswer, marks</strong></p>
+            <input class="form-input" id="tf-file" type="file" accept=".xlsx" data-type="tf" disabled/>
+        </div>
+        <div id="fill-upload-section" class="q-upload-section hidden-section">
+            <div class="q-header"><h3 style="margin: 0;">Fill in the Blanks</h3><button type="button" class="btn-secondary download-template-btn" data-template-type="fill">Download Format</button></div>
+            <p>Headers: <strong>question, correctAnswer, marks</strong></p>
+            <input class="form-input" id="fill-file" type="file" accept=".xlsx" data-type="fill" disabled/>
+        </div>
+        <div id="match-upload-section" class="q-upload-section hidden-section">
+            <div class="q-header"><h3 style="margin: 0;">Match the Following</h3><button type="button" class="btn-secondary download-template-btn" data-template-type="match">Download Format</button></div>
+            <p>Headers: <strong>question, marks, columnA_1, columnB_1, ... (up to 4 pairs)</strong></p>
+            <input class="form-input" id="match-file" type="file" accept=".xlsx" data-type="match" disabled/>
+        </div>
+        <div id="compiler-upload-section" class="q-upload-section hidden-section">
+            <div class="q-header"><h3 style="margin: 0;">Compiler / Coding</h3><button type="button" class="btn-secondary download-template-btn" data-template-type="compiler">Download Format</button></div>
+            <p>Headers: <strong>question, language, stdin, expectedOutput, marks</strong></p>
+            <input class="form-input" id="compiler-file" type="file" accept=".xlsx" data-type="compiler" disabled/>
+        </div>
+    </div>
+  </div>
+    
+  <div class="filter-buttons" style="margin-top: 2rem; justify-content: flex-end;">
+      <button id="create-test-btn" type="button" class="btn-primary" style="padding: 0.75rem 1.5rem;">Create Test</button>
+  </div>
+</form>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<script type="module">
+    // Assuming adminmanageTests.html and js/ is in the same folder, this path should be correct.
+    import { initManageTests } from './js/portals/admin/pages/adminmanageTests.js';
+    
+    const adminContext = { email: 'admin@pec.edu' }; 
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        initManageTests(adminContext);
+    });
+</script>

@@ -1,0 +1,119 @@
+<!-- Feedback Section -->
+<section class="bg-white rounded-2xl shadow-sm p-6 space-y-8">
+
+  <!-- Title -->
+  <div class="flex items-center gap-3 mb-4">
+    <span class="material-symbols-outlined text-navy text-3xl">feedback</span>
+    <h2 class="text-2xl font-bold text-navy">Feedback</h2>
+  </div>
+
+  <!-- Feedback Form -->
+  <div class="bg-gradient-to-r from-navy to-navy-dark rounded-xl p-6 text-white">
+    <h3 class="text-xl font-semibold mb-4">Send Your Feedback</h3>
+    <form id="feedback-form" class="space-y-4">
+      <div>
+        <label class="block mb-1 text-sm">Category</label>
+        <select id="feedback-category" class="w-full px-3 py-2 rounded text-gray-800">
+          <option value="general">General</option>
+          <option value="technical">Technical</option>
+          <option value="unit-tests">Unit Tests</option>
+          <option value="soft-skills">Soft Skills</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div>
+        <label class="block mb-1 text-sm">Your Feedback</label>
+        <textarea id="feedback-text" rows="4" class="w-full px-3 py-2 rounded text-gray-800" placeholder="Write your feedback here..."></textarea>
+      </div>
+      <button type="submit" class="bg-white text-navy px-4 py-2 rounded hover:bg-gray-100 flex items-center gap-2">
+        <span class="material-symbols-outlined">send</span>
+        Submit Feedback
+      </button>
+    </form>
+  </div>
+
+  <!-- Previous Feedback -->
+  <div>
+    <h3 class="text-xl font-semibold mb-4 text-navy">Previous Feedback</h3>
+    <div id="feedback-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- Cards populated dynamically -->
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div>
+    <h3 class="text-xl font-semibold mb-4 text-navy">FAQ</h3>
+    <div class="space-y-2" id="faq-accordion">
+      <div class="border rounded-xl">
+        <button class="w-full flex justify-between items-center px-4 py-3 text-left text-navy font-medium" data-toggle="faq1">
+          How do I start a test?
+          <span class="material-symbols-outlined">expand_more</span>
+        </button>
+        <div class="hidden px-4 py-2 text-gray-600" id="faq1">
+          Go to Unit Tests or Technical Skills and click Start Test.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Info -->
+  <div>
+    <h3 class="text-xl font-semibold mb-4 text-navy">Contact Information</h3>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="flex items-center gap-3 bg-gray-50 p-4 rounded-xl">
+        <span class="material-symbols-outlined text-navy">email</span>
+        <div>
+          <div class="font-semibold">Email</div>
+          <div class="text-sm text-gray-600">pecaidsonlineportal@gmail.com</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 bg-gray-50 p-4 rounded-xl">
+        <span class="material-symbols-outlined text-navy">call</span>
+        <div>
+          <div class="font-semibold">Phone</div>
+          <div class="text-sm text-gray-600">+91 6383665576</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 bg-gray-50 p-4 rounded-xl">
+        <span class="material-symbols-outlined text-navy">location_on</span>
+        <div>
+          <div class="font-semibold">Address</div>
+          <div class="text-sm text-gray-600">Department of AI & DS, Panimalar Engineering College,Chennai,Poonamalle</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // FAQ toggle
+  document.querySelectorAll('[data-toggle]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-toggle');
+      const panel = document.getElementById(id);
+      panel.classList.toggle('hidden');
+    });
+  });
+
+  // Feedback form submit (hook to Firebase)
+  document.getElementById('feedback-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // You can add Firebase Firestore push here
+    alert('Feedback submitted! (Connect to Firebase here)');
+  });
+
+  // Dynamic rendering
+  window.renderFeedbackData = function(data) {
+    const container = document.getElementById('feedback-list');
+    container.innerHTML = '';
+    (data.feedback || []).forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'bg-gray-50 rounded-xl p-4 shadow hover:shadow-md transition';
+      card.innerHTML = `
+        <div class="font-semibold text-navy mb-1">${item.category}</div>
+        <div class="text-sm text-gray-700">${item.text}</div>
+      `;
+      container.appendChild(card);
+    });
+  };
+</script>

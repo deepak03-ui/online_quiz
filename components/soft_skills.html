@@ -1,0 +1,49 @@
+<!-- soft_skills.html - Soft skills tests section -->
+<div class="card">
+  <div class="flex items-center justify-between mb-4">
+    <div>
+      <h2 class="text-2xl font-bold text-green-700">Soft Skills</h2>
+      <p class="text-sm text-gray-500">Communication, teamwork and leadership tests.</p>
+    </div>
+  </div>
+
+  <div id="soft-cards" class="test-grid"></div>
+</div>
+
+<script>
+  function renderSoftSkillsData(data) {
+    const root = document.getElementById('soft-cards');
+    if (!root) return;
+    root.innerHTML = '';
+
+    if (!data || !data.tests || data.tests.length === 0) {
+      root.innerHTML = '<div class="text-gray-500">No soft skills tests scheduled.</div>';
+      return;
+    }
+
+    data.tests.forEach(test => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="text-center">
+          <div class="w-14 h-14 bg-green-600 rounded-lg flex items-center justify-center mx-auto mb-3">
+            <span class="material-symbols-outlined text-white">groups</span>
+          </div>
+          <h4 class="font-semibold">${test.title}</h4>
+        </div>
+        <div class="bg-green-50 rounded p-3 my-3">
+          <div class="grid grid-cols-2 text-center">
+            <div><div class="font-bold text-green-700">${test.details[0].value}</div><div class="text-xs font-semibold">${test.details[0].unit}</div></div>
+            <div><div class="font-bold text-green-700">${test.details[1].value}</div><div class="text-xs font-semibold">${test.details[1].unit}</div></div>
+          </div>
+        </div>
+        <div>${test.availability === 'available' ? `<button data-test-id="${test.id}" class="btn-primary w-full py-2 rounded">Start</button>` : `<button disabled class="btn-disabled w-full py-2 rounded">${test.availability}</button>`}</div>
+      `;
+      root.appendChild(card);
+    });
+  }
+</script>
+
+<style>
+  /* local soft-skills styles if needed */
+</style>
