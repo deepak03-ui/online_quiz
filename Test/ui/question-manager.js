@@ -94,14 +94,15 @@ export async function prepareQuestions(mcqs, amountToSelect) {
  * @returns {string} The answer key (A, B, C, or D)
  */
 function findCorrectAnswerKey(options, answerKey) {
+    const normalizedAnswerKey = String(answerKey || "").toLowerCase().trim();
+
     for (let i = 0; i < options.length; i++) {
-        const normalizedOption = options[i].toLowerCase().trim();
-        if (normalizedOption === answerKey) {
-            return String.fromCharCode(65 + i); // Convert index to A, B, C, D
+        const normalizedOption = String(options[i] || "").toLowerCase().trim();
+        if (normalizedOption === normalizedAnswerKey) {
+            return String.fromCharCode(65 + i);
         }
     }
-    
-    // [FIX] Do not default. Throw an error so the problem is found.
+
     console.error(`CRITICAL DATA ERROR: No matching option found for answerKey "${answerKey}" in options:`, options);
     throw new Error(`Invalid answerKey: "${answerKey}". Could not find a matching option.`);
 }
