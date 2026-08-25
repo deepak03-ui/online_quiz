@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const contentArea = document.getElementById('dynamic-content-area');
     const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
+    const sidebar = document.getElementById('sidebar');
+    const menuToggle = document.getElementById('menu-toggle');
 
     // Map page names to their HTML and JS modules
     const pageModules = {
@@ -55,8 +57,18 @@ document.addEventListener('DOMContentLoaded', async () => {
             navLinks.forEach(l => l.classList.remove('active'));
             link.classList.add('active');
             loadPage(link.dataset.page);
+
+            if (window.innerWidth <= 768 && sidebar) {
+                sidebar.classList.remove('show');
+            }
         });
     });
+
+    if (menuToggle && sidebar) {
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('show');
+        });
+    }
 
     // Load the initial page
     loadPage('manage_faculty');

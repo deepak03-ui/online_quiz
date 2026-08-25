@@ -56,24 +56,49 @@ function submitTest() {
     services.uiManager.setSubmittingState(true);
 
     let correctAnswers = 0;
-    for (const question of state.questions) {
-        // This logic assumes `question.correctAnswerKey` is populated correctly.
-        if (state.userAnswers[question.id] === question.correctAnswerKey) {
-            correctAnswers++;
+let totalMarks = 0;
+
+for (const question of state.questions) {
+
+    // ✅ MATCH TYPE - partial scoring with letters
+    if (question.type === 'match') {
+        const userMap = state.userAnswers[question.id] || {};
+        const correctMap = question.correctAnswerKey || {};
+        const marksPerPair = Number(question.marksPerPair || 1);
+
+        let earnedMarks = 0;
+
+        for (let leftItem in correctMap) {
+            if (userMap[leftItem] === correctMap[leftItem]) {
+                earnedMarks += marksPerPair;
+            }
         }
+
+        correctAnswers += earnedMarks;
+        totalMarks += Number(question.marks || Object.keys(correctMap).length * marksPerPair);
     }
+
+    // ✅ MCQ + TF
+    else {
+        if (state.userAnswers[question.id] === question.correctAnswerKey) {
+            correctAnswers += Number(question.marks || 1);
+        }
+
+        totalMarks += Number(question.marks || 1);
+    }
+}
     
     console.log("--- TEST COMPLETE & RETURNING RESULT ---");
-    console.log("Final Score:", `${correctAnswers} / ${state.questions.length}`);
+    console.log("Final Score:", `${correctAnswers} / ${totalMarks}`);
     
     // --- CHANGE #3: Resolve the promise instead of showing the results UI ---
     // Create the result object in the exact format main7.js expects
     const result = {
-        score: {
-            correct: correctAnswers,
-            total: state.questions.length
-        }
-    };
+    score: {
+        correct: correctAnswers,
+        total: totalMarks
+    }
+};
     
     // Resolve the promise, sending the result back to main7.js
     if (state.resolveTestPromise) {
@@ -142,12 +167,27 @@ function attachEventListeners() {
     }
     uiElements.nextQuestionBtn.onclick = handleNextQuestion;
     uiElements.backToDashboardBtn.onclick = () => window.location.reload(); // This screen is not used, but we'll leave it
-    uiElements.optionsContainer.addEventListener('change', (e) => {
-        if (e.target.name === 'question-options') {
-            const question = state.questions[state.currentQuestionIndex];
-            state.userAnswers[question.id] = e.target.value;
-        }
-    });
+   uiElements.optionsContainer.addEventListener('change', (e) => {
+    const question = state.questions[state.currentQuestionIndex];
+
+    // ✅ MCQ / TF
+    if (e.target.name === 'question-options') {
+        state.userAnswers[question.id] = e.target.value;
+    }
+
+    // ✅ MATCH
+    if (e.target.name === 'match-options') {
+    if (!state.userAnswers[question.id] || typeof state.userAnswers[question.id] !== 'object') {
+        state.userAnswers[question.id] = {};
+    }
+
+    const leftItem = e.target.dataset.left;
+    state.userAnswers[question.id][leftItem] = e.target.value;
+
+    // ✅ immediately re-render current question
+    renderCurrentQuestion();
+}
+});
 
     // --- REMOVED ---
     // The 'beforeunload' event listener block has been deleted

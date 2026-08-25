@@ -412,3 +412,69 @@ body {
   gap: 0.75rem;
   box-shadow: 0 8px 25px var(--shadow-light);
 }
+
+@media (max-width: 860px) {
+  .top-bar {
+    padding: 12px 16px;
+  }
+
+  .top-bar-inner {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .college-logo,
+  .secondary-logo-img {
+    height: 80px;
+    margin: 0;
+  }
+
+  .brand-text {
+    margin: 0;
+  }
+
+  .college-name {
+    font-size: 1.8rem;
+  }
+
+  .sub-name1,
+  .sub-name2 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .top-bar {
+    padding: 12px 12px;
+  }
+
+  .login-card {
+    padding: 24px;
+    margin: 0 12px;
+  }
+
+  .college-name {
+    font-size: 1.6rem;
+  }
+
+  .sub-name1,
+  .sub-name2,
+  .platform-subtitle,
+  .platform-subtitle1 {
+    font-size: 0.95rem;
+  }
+
+  .decorative-circle {
+    width: 220px;
+    height: 220px;
+  }
+
+  .circle-1 { top: 6%; left: 8%; }
+  .circle-2 { bottom: 4%; right: 6%; }
+
+  .signin-button {
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+  }
+}

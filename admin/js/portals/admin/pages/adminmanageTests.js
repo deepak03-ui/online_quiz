@@ -306,29 +306,131 @@ export function initManageTests(admin) {
                     if (excelData.length === 0) return alert("The uploaded file is empty.");
                     
                     let totalMarks = 0;
-                    const transformedQuestions = excelData.map(row => {
-                        const marks = parseInt(row.marks, 10) || 0;
-                        totalMarks += marks;
-                        const answerKey = String(row.answerkey || '').toLowerCase().trim();
+const transformedQuestions = excelData.map(row => {
+    const marks = parseInt(row.marks, 10) || 0;
+    totalMarks += marks;
 
-                        const questionData = {
-                            text: String(row.question || row.text || ''),
-                            marks: marks,
-                            answerKey: answerKey,
-                            type: String(row.type || fileInput.dataset.type),
-                            order: parseInt(row.order || row.questionNumber, 10),
-                            questionNumber: parseInt(row.order || row.questionNumber, 10)
-                        };
-                        
-                        const options = [row.option1, row.option2, row.option3, row.option4]
-                            .filter(opt => opt != null && opt !== '')
-                            .map(opt => String(opt));
+    const questionType = String(fileInput.dataset.type).toLowerCase();
 
-                        if (options.length > 0) {
-                            questionData.options = options;
-                        }
-                        return questionData;
-                    });
+    const questionData = {
+        text: String(row.question || row.text || ''),
+        marks: marks,
+        type: questionType,
+        order: parseInt(row.order || row.questionNumber, 10),
+        questionNumber: parseInt(row.order || row.questionNumber, 10)
+    };
+
+    // ✅ TRUE / FALSE ONLY
+    if (questionType === 'tf') {
+        let answer = String(row.correctAnswer || row.answerkey || '').toLowerCase().trim();
+
+        if (['true', 't', '1'].includes(answer)) {
+            answer = 'true';
+        } else if (['false', 'f', '0'].includes(answer)) {
+            answer = 'false';
+        } else {
+            throw new Error(`Invalid TF answer at question ${questionData.order}`);
+        }
+
+        questionData.answerKey = answer;
+        questionData.options = ['True', 'False'];
+    }
+
+    // ✅ MCQ ONLY
+    if (questionType === 'mcq') {
+        const answerKey = String(row.correctAnswer || row.answerkey || '').toLowerCase().trim();
+        questionData.answerKey = answerKey;
+
+        const options = [
+            row.optionA || row.option1,
+            row.optionB || row.option2,
+            row.optionC || row.option3,
+            row.optionD || row.option4
+        ]
+        .filter(opt => opt != null && opt !== '')
+        .map(opt => String(opt));
+
+        if (options.length === 0) {
+            throw new Error(`MCQ options missing at question ${questionData.order}`);
+        }
+
+        questionData.options = options;
+    }
+
+if (questionType === 'match') {
+
+    const leftItems = [
+        row.left1, row.left2, row.left3,
+        row.left4, row.left5, row.left6
+    ]
+    .filter(v => v !== undefined && v !== null && v !== '')
+    .map(v => String(v).trim());
+
+    const rightItems = [
+        row.right1, row.right2, row.right3,
+        row.right4, row.right5, row.right6
+    ]
+    .filter(v => v !== undefined && v !== null && v !== '')
+    .map(v => String(v).trim());
+
+    if (leftItems.length === 0 || rightItems.length === 0) {
+        throw new Error(`Match data missing at question ${questionData.order}`);
+    }
+
+    const mappingStr = String(row.correctMapping || '').trim();
+
+    if (!mappingStr) {
+        throw new Error(`Mapping missing at question ${questionData.order}`);
+    }
+
+    const pairs = mappingStr.split(',');
+    const correctMapping = {};
+
+    pairs.forEach(pair => {
+        const parts = pair.split(':');
+
+        if (parts.length !== 2) {
+            throw new Error(`Invalid mapping format at question ${questionData.order}`);
+        }
+
+        const left = parts[0].trim();
+        const right = parts[1].trim();
+
+        if (!leftItems.includes(left)) {
+            throw new Error(`Left value "${left}" not found at question ${questionData.order}`);
+        }
+
+        if (!rightItems.includes(right)) {
+            throw new Error(`Right value "${right}" not found at question ${questionData.order}`);
+        }
+
+        correctMapping[left] = right;
+    });
+
+    // ✅ NEW: MARKS PER PAIR
+    const numberOfPairs = Object.keys(correctMapping).length;
+
+    if (numberOfPairs === 0) {
+        throw new Error(`No valid pairs found at question ${questionData.order}`);
+    }
+
+    const marksPerPair = marks / numberOfPairs;
+
+    // ✅ FINAL DATA
+    questionData.leftItems = leftItems;
+    questionData.rightItems = rightItems;
+    questionData.correctMapping = correctMapping;
+    questionData.marksPerPair = marksPerPair;   // 🔥 IMPORTANT
+    questionData.totalPairs = numberOfPairs;    // optional but useful
+}
+
+    // ❌ Optional: STRICT VALIDATION (recommended)
+    if (!['mcq', 'tf', 'match'].includes(questionType)) {
+        throw new Error(`Unsupported question type: ${questionType}`);
+    }
+
+    return questionData;
+});
 
                     const testDocData = {
                         title,

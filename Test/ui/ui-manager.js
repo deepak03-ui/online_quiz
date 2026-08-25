@@ -56,71 +56,189 @@ export function renderQuestion(question, { currentIndex, totalQuestions, userAns
 
     dom.questionTextEl.textContent = question.questionText;
     dom.questionProgressEl.textContent = `Question ${currentIndex + 1} of ${totalQuestions}`;
-    
-    // 1. Clear the container before adding new elements
     dom.optionsContainer.innerHTML = '';
 
-    // 2. Build and append elements using DOM methods (no .innerHTML injection)
+    const isMatchQuestion =
+    question.type === 'match' ||
+    (Array.isArray(question.leftItems) && question.rightOptions);
+
+    if (isMatchQuestion) {
+    const userMap = userAnswers[question.id] || {};
+    const leftItems = Array.isArray(question.leftItems) ? question.leftItems : [];
+    const rightOptions = question.rightOptions || {};
+
+    const matchWrapper = document.createElement('div');
+    matchWrapper.className = 'match-wrapper';
+
+    const title = document.createElement('h3');
+    title.textContent = 'Match the Following';
+    title.style.marginBottom = '12px';
+    matchWrapper.appendChild(title);
+
+    const note = document.createElement('div');
+    note.textContent = `1 mark for each correct pair`;
+    note.style.marginBottom = '16px';
+    note.style.fontSize = '14px';
+    note.style.color = '#666';
+    matchWrapper.appendChild(note);
+
+    const columnsContainer = document.createElement('div');
+    columnsContainer.style.display = 'grid';
+    columnsContainer.style.gridTemplateColumns = '1fr 1fr';
+    columnsContainer.style.gap = '24px';
+    columnsContainer.style.marginBottom = '20px';
+
+    const columnA = document.createElement('div');
+    const columnB = document.createElement('div');
+
+    const colATitle = document.createElement('h4');
+    colATitle.textContent = 'Column A';
+    columnA.appendChild(colATitle);
+
+    const colBTitle = document.createElement('h4');
+    colBTitle.textContent = 'Column B';
+    columnB.appendChild(colBTitle);
+
+    leftItems.forEach((leftItem, index) => {
+        const row = document.createElement('div');
+        row.textContent = `${index + 1}. ${leftItem}`;
+        row.style.marginBottom = '8px';
+        columnA.appendChild(row);
+    });
+
+    Object.entries(rightOptions).forEach(([letter, value]) => {
+        const row = document.createElement('div');
+        row.textContent = `${letter}. ${value}`;
+        row.style.marginBottom = '8px';
+        columnB.appendChild(row);
+    });
+
+    columnsContainer.appendChild(columnA);
+    columnsContainer.appendChild(columnB);
+    matchWrapper.appendChild(columnsContainer);
+
+    const answerTitle = document.createElement('h4');
+    answerTitle.textContent = 'Your Answers';
+    answerTitle.style.marginBottom = '12px';
+    matchWrapper.appendChild(answerTitle);
+
+    const selectedLetters = Object.values(userMap).filter(Boolean);
+
+    leftItems.forEach((leftItem, index) => {
+        const row = document.createElement('div');
+        row.className = 'match-answer-row';
+        row.style.display = 'flex';
+        row.style.alignItems = 'center';
+        row.style.gap = '12px';
+        row.style.marginBottom = '12px';
+
+        const leftLabel = document.createElement('span');
+        leftLabel.textContent = `${index + 1} →`;
+        leftLabel.style.width = '40px';
+
+        const select = document.createElement('select');
+        select.className = 'match-dropdown';
+        select.name = 'match-options';
+        select.dataset.left = leftItem;
+        select.style.minWidth = '120px';
+
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = 'Select';
+        select.appendChild(defaultOption);
+
+        Object.keys(rightOptions).forEach((letter) => {
+            const currentSelected = userMap[leftItem];
+            const alreadyUsedElsewhere =
+                selectedLetters.includes(letter) && currentSelected !== letter;
+
+            if (!alreadyUsedElsewhere) {
+                const option = document.createElement('option');
+                option.value = letter;
+                option.textContent = letter;
+
+                if (currentSelected === letter) {
+                    option.selected = true;
+                }
+
+                select.appendChild(option);
+            }
+        });
+
+        row.appendChild(leftLabel);
+        row.appendChild(select);
+        matchWrapper.appendChild(row);
+    });
+
+    dom.optionsContainer.appendChild(matchWrapper);
+
+    const isLastQuestion = currentIndex === totalQuestions - 1;
+    const nextBtn = dom.nextQuestionBtn;
+
+    if (isLastQuestion) {
+        nextBtn.textContent = 'Submit';
+        nextBtn.classList.remove('btn-primary');
+        nextBtn.classList.add('btn-success');
+    } else {
+        nextBtn.textContent = 'Next';
+        nextBtn.classList.remove('btn-success');
+        nextBtn.classList.add('btn-primary');
+    }
+
+    nextBtn.disabled = false;
+    return;
+}
+
+    if (!Array.isArray(question.displayOptions)) {
+        throw new Error('displayOptions missing for non-match question');
+    }
+
     question.displayOptions.forEach(([key, text], index) => {
-        
-        // Create <div class="option-wrapper">
         const wrapper = document.createElement('div');
         wrapper.className = 'option-wrapper';
 
-        // Create <input type="radio" ...>
         const input = document.createElement('input');
         input.type = 'radio';
         input.id = `option${index}`;
         input.name = 'question-options';
         input.value = key;
-        
-        // Set the 'checked' property directly
+
         if (userAnswers[question.id] === key) {
             input.checked = true;
         }
 
-        // Create <label for="..." class="option-label">
         const label = document.createElement('label');
         label.htmlFor = `option${index}`;
         label.className = 'option-label';
 
-        // Create <span class="option-number">
         const optionNumber = document.createElement('span');
         optionNumber.className = 'option-number';
-        optionNumber.textContent = String.fromCharCode(65 + index); // A, B, C...
+        optionNumber.textContent = String.fromCharCode(65 + index);
 
-        // Create <span class="option-text">
         const optionText = document.createElement('span');
         optionText.className = 'option-text';
         optionText.textContent = text;
 
-        // 3. Assemble the elements
         label.appendChild(optionNumber);
         label.appendChild(optionText);
         wrapper.appendChild(input);
         wrapper.appendChild(label);
-
-        // 4. Add the complete wrapper to the container
         dom.optionsContainer.appendChild(wrapper);
     });
-    
-    dom.nextQuestionBtn.disabled = currentIndex === totalQuestions - 1;
-    // Check if it's the last question
+
     const isLastQuestion = currentIndex === totalQuestions - 1;
     const nextBtn = dom.nextQuestionBtn;
 
-    // Transform the button based on the state
     if (isLastQuestion) {
         nextBtn.textContent = 'Submit';
-        nextBtn.classList.remove('btn-primary'); // Remove blue color
-        nextBtn.classList.add('btn-success');   // Add green color
+        nextBtn.classList.remove('btn-primary');
+        nextBtn.classList.add('btn-success');
     } else {
         nextBtn.textContent = 'Next';
-        nextBtn.classList.remove('btn-success'); // Remove green color
-        nextBtn.classList.add('btn-primary');   // Add blue color
+        nextBtn.classList.remove('btn-success');
+        nextBtn.classList.add('btn-primary');
     }
 
-    // Ensure the button is always enabled when a question is rendered
     nextBtn.disabled = false;
 }
 

@@ -4,7 +4,7 @@
  * Handles user authentication for the login page (index.html).
  */
 
-import { GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import { GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 import { initializeFirebase } from './firebase-config.js';
 
@@ -12,11 +12,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const { auth, db } = initializeFirebase();
     const googleSignInBtn = document.getElementById('google-signin-btn');
     const authErrorMsg = document.getElementById('auth-error-message');
+    const isMobileDevice = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
     const showAuthError = (message) => {
         authErrorMsg.textContent = message;
         authErrorMsg.style.display = 'block';
     };
+
+    const hideAuthError = () => {
+        authErrorMsg.style.display = 'none';
+    };
+
+    const handleRedirectResult = async () => {
+        try {
+            const result = await getRedirectResult(auth);
+            if (result && result.user) {
+                await checkUserRoleAndRedirect(result.user.email);
+            }
+        } catch (error) {
+            console.error('Google Redirect Sign-In Error:', error);
+            const msg = error.code === 'auth/popup-closed-by-user' ?
+                'Sign-in process was cancelled.' :
+                error.message || 'An error occurred during sign-in.';
+            showAuthError(msg + ' Please try again.');
+        }
+    };
+
+    hideAuthError();
+    handleRedirectResult();
 
     const calculateYearOfStudy = (graduationYear) => {
         if (!graduationYear || isNaN(graduationYear)) return 'N/A';
@@ -34,14 +57,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     googleSignInBtn.addEventListener('click', () => {
         const provider = new GoogleAuthProvider();
-        authErrorMsg.style.display = 'none';
+        hideAuthError();
+        if (isMobileDevice) {
+            signInWithRedirect(auth, provider);
+            return;
+        }
+
         signInWithPopup(auth, provider)
             .then(result => result.user && checkUserRoleAndRedirect(result.user.email))
             .catch(error => {
                 console.error("Google Sign-In Error:", error);
                 const msg = error.code === 'auth/popup-closed-by-user' ?
                     'Sign-in process was cancelled.' :
-                    'An error occurred during sign-in.';
+                    error.message || 'An error occurred during sign-in.';
                 showAuthError(msg + ' Please try again.');
             });
     });
